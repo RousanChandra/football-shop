@@ -21,6 +21,7 @@ Jawab :
 - Jangan lupa setelah melakukan semua ini, saya selalu melakukan push ke repositori Github dan PWS kalau ada update terbaru. dan juga di deploy juga di pws agar proyek saya bisa diliat untuk semua orang.
 
 Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+
 Jawab:
 Client (Browser)  →  urls.py(yang bagian proyek)  →  Cek url (kalau url sesuai akan lanjut ke berikutnya, kalau url tidak sesuai maka akan error 404)  →  urls.py(yang bagian apliasi)  →  views.py  →  models.py  →  views.py  →  Berkas (main.html) →  Response ke Client (Browser)
 
