@@ -1,4 +1,5 @@
 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
 Jawab : 
 - Membuat sebuah proyek Django baru -> (Sebelum itu jangan lupa mengikuti tutorial 0 karena kita memperlukan requirements.txt, env, dan env prod untuk menjalankan proyek django) Pertama kita bisa membuat direktori terlebih dahulu lalu buat virtual environment dan jangan lupa untuk mengaktifkannya. Selanjutanya saya menyiapkan Dependencies dan menginstallnya. Seperti sebelumnya saya sudah membuat .env yang berisikan 'Production=false' dan .env.prod yang berisikan kredensial yang diberikan melalui email saya. jangan lupa juga untuk mengubah dan menambahkan isi dari file settings.py yang berada di dalam repository 'football_shop'.
 
@@ -32,6 +33,7 @@ Berkas (main.html): Tempat menampilkan data. views.py me-render data ke dalam te
 Response: HTML yang sudah jadi dikirim kembali ke browser.
 
 Peran settings.py dalam proyek Django
+
 Jawab:
 - Menyimpan daftar aplikasi 'main' (INSTALLED_APPS).
 - Mengatur database (engine, nama DB, user, password).
@@ -40,13 +42,16 @@ Jawab:
 - Menentukan lokasi file statis (CSS, JS, gambar) dan template.
   
 Cara kerja migrasi database di Django
+
 Jawab: Semisalnya saya ingin ada perubahan pada model ataupun membuat model.py, struktur database otomatis berubah. Django nggak akan langsung ubah database sehingga kita perlu melakukan 'python manage.py makemigrations' untuk menghasilkan file migration (isi instruksi perubahan). Lalu jalankan 'python manage.py migrate' -> Django menerapkan perubahan itu ke database. jadi kegunaan migrasi sebagai sinkronisasi
 
 Mengapa Django dipilih untuk pembelajaran awal?
+
 Jawab: 
 karena Django pakai pola Model–View–Template (MVT) yang jelas → mudah dipahami untuk dasar pengembangan. (Sayapun memahaminya dengan baik), lalu perlengkapan ada tools bawaan untuk database, autentikasi, routing, admin panel. Jadi saya bisa fokus ke logika, bukan ribet in bstal library tambahan. Dan juga populer banyak dipakai di perusahaan, jadi ilmu yang diajar berguna di dunia kerja serta Python lebih mudah dipelajari daripada bahasa lain, cocok untuk perkenalan framework web.
 
 Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
+
 Jawab: Penjelasan cukup jelas, saya sangat berterima kasih sudah diberikan cara memahami materinya dengan baik.
 
 Terima kasih banyak kak.
