@@ -4,7 +4,7 @@ from django.shortcuts import render
 from .models import Product
 
 
-def home(request):
+def show_main(request):
     context = {
         'npm' : '2406435894',
         'student_name': 'Rousan Chandra Syahbunan',
