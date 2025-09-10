@@ -14,6 +14,5 @@ def home(request):
         'description': 'Bola sepak original Adidas Tango dengan kualitas tinggi, cocok untuk pertandingan maupun latihan.',
         'category': 'Peralatan Olahraga',
         'is_featured': True,
-        'stock': 10
     }
     return render(request, 'main.html', context)
