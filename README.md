@@ -5,7 +5,7 @@ Jawab :
 
 - Membuat aplikasi dengan nama main pada proyek tersebut -> Pertama, sebelumnnya saya sudah mengaftikan virtual environment (kalau belum jangan lupa diaktifkan) sehingga saya hanya perlu menjalankan command 'python manage.py startapp main' yang akan membuat direktori baru bernama main. yang terakhir saya harus memasukan direktori main di dalam file 'settings.py' dengan menambah string "main" di variable; "INSTALLED_APPS".
 
-- Proses routing -> Saya mengisi file 'urls.py' yang sudah berada pada 'main', file tersebut berisikan sesuai yang diterakan oleh tutorial 1. Saya juga mengedit file 'urls.py' yang berada di repository 'football_shop' dengan mengarahkan semua requestnya ke file 'urls.py' yang ada di dalam 'main'
+- Proses routing (kedua routing saya gabung kesini) -> Saya mengisi file 'urls.py' yang sudah berada pada 'main', file tersebut berisikan sesuai yang diterakan oleh tutorial 1. Saya juga mengedit file 'urls.py' yang berada di repository 'football_shop' dengan mengarahkan semua requestnya ke file 'urls.py' yang ada di dalam 'main'
   
 - Mmebuat model pada aplikasi main dengan nama Product dan memiliki atribut wajib sebagai berikut -> saya mengisi file 'model.py' dengan menambahkan class yang bernama Product yang memilki atribut-atribut wajib yang sesuai pada tugas 2:
   1. name (CharField) → digunakan untuk menyimpan nama produk. CharField cocok dipakai karena nama produk biasanya berupa teks pendek dengan jumlah karakter terbatas.
