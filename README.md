@@ -58,3 +58,9 @@ Jawab: Penjelasan cukup jelas, saya sangat berterima kasih sudah diberikan cara 
 
 Terima kasih banyak kak.
 <details>
+  
+<details>
+<Summary><b>Tugas 2</b></Summary>
+
+
+<details></details>
