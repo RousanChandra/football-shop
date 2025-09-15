@@ -1,3 +1,5 @@
+<details>
+<Summary><b>Tugas 2</b></Summary>
 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
 Jawab : 
@@ -55,3 +57,4 @@ Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebe
 Jawab: Penjelasan cukup jelas, saya sangat berterima kasih sudah diberikan cara memahami materinya dengan baik.
 
 Terima kasih banyak kak.
+<details>
