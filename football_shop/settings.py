@@ -32,6 +32,9 @@ PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1","rousan-chandra-ikearousan.pbp.cs.ui.ac.id"]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://rousan-chandra-ikearousan.pbp.cs.ui.ac.id"
+]
 
 
 # Application definition
