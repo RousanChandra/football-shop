@@ -13,7 +13,6 @@
 <h5>Kategori: {{ category }}</h5>
 <h5>Featured: {{ is_featured }}</h5> {% endcomment %}
 
-<p>{{ class }}</p>
 <a href="{% url 'main:create_product' %}">
   <button>+ Add Product</button>
 </a>
@@ -21,17 +20,16 @@
 <hr>
 
 {% if not product_list %}
-<p>Belum ada data produk pada Louis Ballton.</p>
+<p>Belum ada product pada football shop.</p>
 {% else %}
 
 {% for product in product_list %}
 <div>
   <h2><a href="{% url 'main:show_product' product.id %}">{{ product.name }}</a></h2>
 
-  <p><b>{{ product.get_category_display }}</b>{% if product.is_featured %} | 
-    <b>Featured</b>{% endif %}{% if product.is_product_hot %} | 
-    <b>Hot</b>{% endif %} | <i>{{ product.created_at|date:"d M Y H:i" }}</i> 
-    | Views: {{ product.item_views }}</p>
+  <p><b>Kategori:</b> {{ product.category }}<br>
+  <b>Harga:</b> Rp {{ product.price }}
+  {% if product.is_featured %}<br><b>Featured</b>{% endif %}</p>
 
   {% if product.thumbnail %}
   <img src="{{ product.thumbnail }}" alt="thumbnail" width="150" height="100">
@@ -40,11 +38,15 @@
 
   <p>{{ product.description|truncatewords:25 }}...</p>
 
-  <p><a href="{% url 'main:show_product' product.id %}"><button>Read More</button></a></p>
+  <p><a href="{% url 'main:show_product' product.id %}"><button>Detail</button></a></p>
 </div>
 
 <hr>
 {% endfor %}
 
 {% endif %}
+
+
+
+
 {% endblock content %}
