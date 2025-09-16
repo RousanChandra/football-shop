@@ -12,14 +12,13 @@ class Product(models.Model):
         ('gawang', 'Gawang'),
         ('budget', 'Budget'),
     ]
-
-    name = models.CharField(max_length=255)            # name (CharField)
-    price = models.IntegerField()                      # price (IntegerField)
-    description = models.TextField(blank=True)         # description (TextField)
-    thumbnail = models.URLField(blank=True, null=True) # thumbnail (URLField)
-    category = models.CharField(max_length=100, choices=CATEGORY_CHOICES,blank=True)  # category (CharField)
-    is_featured = models.BooleanField(default=False)   # is_featured (BooleanField)
-
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255)            
+    price = models.IntegerField()                      
+    description = models.TextField(blank=True)         
+    thumbnail = models.URLField(blank=True, null=True) 
+    category = models.CharField(max_length=100, choices=CATEGORY_CHOICES,blank=True)  
+    is_featured = models.BooleanField(default=False)  
     
     def __str__(self):
         return self.name

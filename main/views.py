@@ -8,6 +8,7 @@ from django.core import serializers
 
 def home(request):
     product_list = Product.objects.all()
+
     context = {
         'npm' : '2406435894',
         'student_name': 'Rousan Chandra Syahbunan',
@@ -36,8 +37,8 @@ def create_product(request):
     context = {'form': form}
     return render(request, "create_product.html", context)
 
-def show_product(request, id):
-    product = get_object_or_404(Product, pk=id)
+def show_product(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
 
     context = {
         'product': product
@@ -48,16 +49,16 @@ def show_product(request, id):
 
 def show_xml_by_id(request, product_id):
    try:
-       news_item = Product.objects.filter(pk=product_id)
-       xml_data = serializers.serialize("xml", news_item)
+       product_item = Product.objects.filter(pk=product_id)
+       xml_data = serializers.serialize("xml", product_item)
        return HttpResponse(xml_data, content_type="application/xml")
    except Product.DoesNotExist:
        return HttpResponse(status=404)
 
 def show_json_by_id(request, product_id):
    try:
-       news_item = Product.objects.get(pk=product_id)
-       json_data = serializers.serialize("json", [news_item])
+       product_item = Product.objects.get(pk=product_id)
+       json_data = serializers.serialize("json", [product_item])
        return HttpResponse(json_data, content_type="application/json")
    except Product.DoesNotExist:
        return HttpResponse(status=404)
