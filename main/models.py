@@ -27,6 +27,8 @@ class Product(models.Model):
     # def is_news_hot(self):
     #     return self.news_views > 20
         
+
+        
     # def increment_views(self):
     #     self.news_views += 1
     #     self.save()
