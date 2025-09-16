@@ -57,10 +57,9 @@ Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebe
 Jawab: Penjelasan cukup jelas, saya sangat berterima kasih sudah diberikan cara memahami materinya dengan baik.
 
 Terima kasih banyak kak.
-<details>
-  
-<details>
-<Summary><b>Tugas 2</b></Summary>
+
+<Summary><b>Tugas 3</b></Summary>
+
+Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
 
 
-<details></details>
