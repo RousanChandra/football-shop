@@ -37,8 +37,8 @@ def create_product(request):
     context = {'form': form}
     return render(request, "create_product.html", context)
 
-def show_product(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
+def show_product(request, id):
+    product = get_object_or_404(Product, pk=id)
 
     context = {
         'product': product
@@ -67,4 +67,4 @@ def show_json_by_id(request, product_id):
 
 
 
-   
+
