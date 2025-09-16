@@ -23,6 +23,8 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
+
+    
     # @property
     # def is_news_hot(self):
     #     return self.news_views > 20
