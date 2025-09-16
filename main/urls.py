@@ -14,6 +14,4 @@ urlpatterns = [
     path('json/<str:product_id>/', show_json_by_id, name='show_json_by_id'),
 
 
-
-    
 ] 
