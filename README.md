@@ -60,6 +60,7 @@ Terima kasih banyak kak.
 
 <Summary><b>Tugas 3</b></Summary>
 
+
 Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
 
 
