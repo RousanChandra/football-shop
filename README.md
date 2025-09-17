@@ -59,6 +59,8 @@ Jawab: Penjelasan cukup jelas, saya sangat berterima kasih sudah diberikan cara 
 Terima kasih banyak kak.
 
 </details>
+
+<details>
 <Summary><b>Tugas 3</b></Summary>
 
 Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
@@ -149,9 +151,21 @@ urlpatterns = [
     path('json/<str:product_id>/', show_json_by_id, name='show_json_by_id'),
 ] 
 
-Membuat halaman yang menampilkan data objek model yang memiliki tombol "Add" yang akan redirect ke halaman form, serta tombol "Detail" pada setiap data objek model yang akan menampilkan halaman detail objek. -> Membuat berkas baru pada direktori main dengan nama forms.py untuk membuat struktur form yang dapat menerima data Product baru. Tambahkan kode tersebut di form.py. Lalu, sebelumnya saya sudah membuat create_product dan 
+Membuat halaman yang menampilkan data objek model yang memiliki tombol "Add" yang akan redirect ke halaman form, serta tombol "Detail" pada setiap data objek model yang akan menampilkan halaman detail objek. 
+Membuat halaman form untuk menambahkan objek model pada app sebelumnya.
+Membuat halaman yang menampilkan detail dari setiap data objek model. Ketiganya saya gabung karena semuanya berhubungan langsung.
+-> Membuat berkas baru pada direktori main dengan nama forms.py untuk membuat struktur form yang dapat menerima data Product baru. Tambahkan kode tersebut di form.py. Lalu, sebelumnya saya sudah membuat fungsi dan path url create_product dan show_product sehingga yang perlu saya lakukan membuat berkas - berkas yang diperlukan untuk membuat create_product.html dan show_product.html yang berada di direktori main. Formatnya menyesuaikan kritea saya, misalnya kalau football_shop yang saya perlukan adalah nama, harga, dekripsi, jenis barang, dan sebagainya. Jangan lupa menambahkan {% csrf_token %} dan {{ form.as_table }} pada create_product.html.
+{% csrf_token %} adalah token yang berfungsi sebagai security. Token ini di-generate secara otomatis oleh Django untuk mencegah serangan berbahaya.
+{{ form.as_table }} adalah template tag yang digunakan untuk menampilkan fields form yang sudah dibuat pada forms.py sebagai table.
 
 
+Tambahan hal penting, sebelumnya saya sudah membuat sebuah base.html yang berada pada folder template di direktori utama. ini berfungsi sebagai template dasar yang dapat digunakan sebagai kerangka umum untuk halaman web lainnya di dalam proyek. Dan untuk main.html yang berada di direktori main. Terdapat perubahan yaitu digunakan sebagai extend dari folder template berisi file base.html yang ada di direktori utama(football-shop). Hal ini juga berlaku untuk html yang lainnya seperti create_product.html dan show_product.html.
+
+Sebelumnya saya sudah membuat base.html sebagai kerangka umum sehingga saya perlu menambahkan sebuah BASE_DIR / templates pada bagian DIRS di varible TEMPLATES di settings.py agar berkas base.html terdeteksi sebagai berkas template.
+
+Terakhir, saya menambahkan entri url proyek pws saya pada CSRF_TRUSTED_ORIGINS tepat setelah local host.
+
+Untuk SS Postman, saya hanya perlu mendownload postman sesuai yang ada di tutorial 2. Lalu menyalin url - url yang saya perlukan seperti pada foto dibawah ini.
 
 Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?
 Jawab: Untuk tutorial 2, saya memahami dengan baik. Hanya saja banyak sekali error saat di PWS dibandingkan saat saya di localhost. jadi jujur localhost saya lebih baik dijalankan dibanding pws saat tutorial 2.
@@ -163,8 +177,7 @@ Jawab: Untuk tutorial 2, saya memahami dengan baik. Hanya saja banyak sekali err
 <img width="1510" height="861" alt="image" src="https://github.com/user-attachments/assets/bec411a0-aeea-4fbc-9a1b-c7a56b3faefc" />
 <img width="1523" height="891" alt="image" src="https://github.com/user-attachments/assets/897a0623-d03d-4c7a-93b9-f5a305663c4e" />
 
-
-<details>
+</details>
 
 
 
