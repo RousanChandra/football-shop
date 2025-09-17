@@ -58,7 +58,7 @@ Jawab: Penjelasan cukup jelas, saya sangat berterima kasih sudah diberikan cara 
 
 Terima kasih banyak kak.
 
-<details>
+</details>
 <Summary><b>Tugas 3</b></Summary>
 
 Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
