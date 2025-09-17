@@ -165,6 +165,8 @@ Terakhir, saya menambahkan entri url proyek pws saya pada CSRF_TRUSTED_ORIGINS t
 
 Untuk SS Postman, saya hanya perlu mendownload postman sesuai yang ada di tutorial 2. Lalu menyalin url - url yang saya perlukan seperti pada foto dibawah ini.
 
+Untuk git, seperti biasa saya hanya perlu add, commit dan push ke github saya ini.
+
 Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?
 
 Jawab: Untuk tutorial 2, saya memahami dengan baik. Hanya saja banyak sekali error saat di PWS dibandingkan saat saya di localhost. jadi jujur localhost saya lebih baik dijalankan dibanding pws saat tutorial 2.
