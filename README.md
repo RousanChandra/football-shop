@@ -1,5 +1,6 @@
 <details>
 <Summary><b>Tugas 2</b><Summary>
+  
 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
 Jawab : 
