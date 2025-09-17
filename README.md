@@ -1,5 +1,5 @@
 <details>
-<Summary><b>Tugas 2</b></Summary>
+<Summary><b>Tugas 2</b>
 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
 Jawab : 
@@ -62,14 +62,26 @@ Terima kasih banyak kak.
 <Summary><b>Tugas 3</b></Summary>
 
 Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
-
+Jawab:
 Dalam sebuah platform, data delivery itu penting banget karena dipakai buat ngirim data dari satu bagian sistem ke bagian lain. Bayangin aja kita punya aplikasi, pasti ada proses tuker data antara satu komponen dengan komponen lain biar aplikasinya jalan bener. Kalau nggak ada mekanisme ini, tiap bagian bakal jalan sendiri-sendiri tanpa bisa kerja sama. Biar gampang ditransfer, datanya butuh format yang terstruktur dan bisa dimengerti sama semua komponen. Dua format yang bakal saya pakai buat tugas 3 ini adalah XML sama JSON.
 Sebagai contoh data delivery:
 - XML biasanya dipakai di sistem lama atau enterprise karena fleksibel banget, lo bisa bikin tag sesuai kebutuhan. Cocok buat data yang rumit.
 - JSON lebih simpel dan ringan karena isinya berbentuk key-value pairs. Makanya sekarang JSON lebih populer, apalagi di API modern dan aplikasi kekinian.
 Jadi intinya, pake XML atau JSON bikin proses pengiriman data jadi lebih konsisten, efisien, dan gampang diintegrasiin. Hasilnya, platform bisa lebih gampang dikembangin, lebih fleksibel, dan jalan sebagai satu sistem utuh.
 
+Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+Jawab:
 
+
+Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
+Jawab:
+
+Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+Jawab:
+
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+Jawab
+Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian kerjakan?
 
 4 foto hasil url postman:
 <img width="1517" height="954" alt="image" src="https://github.com/user-attachments/assets/c57f11fc-1fdf-42d4-86ed-eae1424b06d5" />
