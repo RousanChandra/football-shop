@@ -77,19 +77,20 @@ Jawab: Menurut saya, JSON emang lebih baik dibanding XML. Soalnya struktur JSON 
 
 Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
 
-Jawab: Method is_valid() pada Django form adalah komponen krusial dalam validasi data input.
-Di Django, is_valid() itu dipake buat mengecek apakah data yang diinput user ke form udah sesuai sama aturan validasi yang saya set. Misalnya kita bikin form buat input data mahasiswa, di situ ada field nama, NPM, sama umur. Nah, kalau is_valid() return True, berarti datanya valid dan bisa diproses atau disimpan ke database.
-Ini sangat penting untuk Django. Karena kalau nggak ada validasi, data yang masuk bisa kacau atau bahkan meerusak sistem. Dengan is_valid(), kita aman dari input yang salah, bikin data di database lebih terjaga, dan sistem jadi lebih stabil. Jadi sebelum data masuk ke tahap berikutnya, harus lewat cek ini dulu.
+Jawab: Method is_valid() pada Django form adalah komponen krusial dalam validasi data input. Di Django, is_valid() itu dipake buat mengecek apakah data yang diinput user ke form udah sesuai sama aturan validasi yang saya set. Misalnya kita bikin form buat input data mahasiswa, di situ ada field nama, NPM, sama umur. Nah, kalau is_valid() return True, berarti datanya valid dan bisa diproses atau disimpan ke database. Ini sangat penting untuk Django. Karena kalau nggak ada validasi, data yang masuk bisa kacau atau bahkan meerusak sistem. Dengan is_valid(), kita aman dari input yang salah, bikin data di database lebih terjaga, dan sistem jadi lebih stabil. Jadi sebelum data masuk ke tahap berikutnya, harus lewat cek ini dulu.
 
 Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
-Jawab:
-Csrf_token digunakan sebagai pelindung ekstra di Django buat form. Token ini dipakai agar server bisa meyakinkan kalau request form bener-bener datang dari user lewat aplikasi kita, bukan dari situs lain yang coba menyerang.
+
+Jawab: Csrf_token digunakan sebagai pelindung ekstra di Django buat form. Token ini dipakai agar server bisa meyakinkan kalau request form bener-bener datang dari user lewat aplikasi kita, bukan dari situs lain yang coba menyerang.
 Kalau kita tidak pake csrf_token, aplikasi bisa kena serangan CSRF (Cross-Site Request Forgery). Misalnya, user lagi login di aplikasi, terus buka website berbahaya yang diam-diam bikin request ke aplikasi kita. Kalau token nggak ada, request itu bisa aja lolos, padahal bukan user yang maksud. Serangannya bisa dipake buat hal-hal berbahaya, kayak mindahin data, ganti password, bahkan transaksi ilegal. Dengan csrf_token, setiap request punya kode unik yang harus cocok sama yang ada di server. Jadi, request palsu tidak bakal diterima. Makanya ini wajib untuk dipakai.
 
 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
 Jawab: (Sebelum menambahkan empat fungsi views untuk data delivery, saya terlebih dahulu memastikan bahwa fungsi dasar create_product dan show_product sudah diimplementasi dengan proper di views.py, beserta routing URL yang sesuai) 
 Tambahkan 4 fungsi views baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML by ID, dan JSON by ID. ->  Untuk menambahkan 4 fungsi views.py, Saya memerlukan beberapa format sesuai yang ada di tutorial 2 lalu memodifikasinya sesuai dengan direktori tugas 2 saya.
+
 Codingnya:
+
 def show_xml(request):
     Product_list = Product.objects.all()
     xml_data = serializers.serialize("xml",  Product_list)
