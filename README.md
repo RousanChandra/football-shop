@@ -9,7 +9,7 @@ Jawab :
 
 - Proses routing (kedua routing saya gabung kesini) -> Saya mengisi file 'urls.py' yang sudah berada pada 'main', file tersebut berisikan sesuai yang diterakan oleh tutorial 1. Saya juga mengedit file 'urls.py' yang berada di repository 'football_shop' dengan mengarahkan semua requestnya ke file 'urls.py' yang ada di dalam 'main'
   
-- Mmebuat model pada aplikasi main dengan nama Product dan memiliki atribut wajib sebagai berikut -> saya mengisi file 'model.py' dengan menambahkan class yang bernama Product yang memilki atribut-atribut wajib yang sesuai pada tugas 2:
+- Membuat model pada aplikasi main dengan nama Product dan memiliki atribut wajib sebagai berikut -> saya mengisi file 'model.py' dengan menambahkan class yang bernama Product yang memilki atribut-atribut wajib yang sesuai pada tugas 2:
   1. name (CharField) → digunakan untuk menyimpan nama produk. CharField cocok dipakai karena nama produk biasanya berupa teks pendek dengan jumlah karakter terbatas.
   2. price (IntegerField) → digunakan untuk menyimpan harga produk dalam bentuk angka bulat. IntegerField dipilih supaya bisa dilakukan operasi aritmetika (misalnya perhitungan total harga).
   3. description (TextField) → digunakan untuk menyimpan deskripsi produk. TextField dipakai karena teks bisa panjang (misalnya penjelasan detail produk).
@@ -135,27 +135,27 @@ Codingnya:
          return HttpResponse(status=404)
 
 Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 1 -> Menambahkan URL routing yang sesuai di urls.py untuk masing-masing fungsi.
-from django.urls import path
-from main.views import home, show_product, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id
 
-app_name = 'main'
-urlpatterns = [
-    path('', home, name='home'),
-    path('create-product/', create_product, name='create_product'),
-    path('product/<str:id>/', show_product, name='show_product'),
-    path('xml/', show_xml, name='show_xml'),
-    path('json/', show_json, name='show_json'),
-    path('xml/<str:product_id>/', show_xml_by_id, name='show_xml_by_id'),
-    path('json/<str:product_id>/', show_json_by_id, name='show_json_by_id'),
-] 
+    from django.urls import path
+    from main.views import home, show_product, create_product, show_xml, show_json, show_xml_by_id, show_json_by_id
 
-Membuat halaman yang menampilkan data objek model yang memiliki tombol "Add" yang akan redirect ke halaman form, serta tombol "Detail" pada setiap data objek model yang akan menampilkan halaman detail objek. 
-Membuat halaman form untuk menambahkan objek model pada app sebelumnya.
-Membuat halaman yang menampilkan detail dari setiap data objek model. Ketiganya saya gabung karena semuanya berhubungan langsung.
+    app_name = 'main'
+      urlpatterns = [
+          path('', home, name='home'),
+          path('create-product/', create_product, name='create_product'),
+          path('product/<str:id>/', show_product, name='show_product'),
+          path('xml/', show_xml, name='show_xml'),
+          path('json/', show_json, name='show_json'),
+          path('xml/<str:product_id>/', show_xml_by_id, name='show_xml_by_id'),
+          path('json/<str:product_id>/', show_json_by_id, name='show_json_by_id'),
+      ] 
+
+Membuat halaman yang menampilkan data objek model yang memiliki tombol "Add" yang akan redirect ke halaman form, serta tombol "Detail" pada setiap data objek model yang akan menampilkan halaman detail objek.  Membuat halaman form untuk menambahkan objek model pada app sebelumnya. Membuat halaman yang menampilkan detail dari setiap data objek model. Ketiganya saya gabung karena semuanya berhubungan langsung. 
+
 -> Membuat berkas baru pada direktori main dengan nama forms.py untuk membuat struktur form yang dapat menerima data Product baru. Tambahkan kode tersebut di form.py. Lalu, sebelumnya saya sudah membuat fungsi dan path url create_product dan show_product sehingga yang perlu saya lakukan membuat berkas - berkas yang diperlukan untuk membuat create_product.html dan show_product.html yang berada di direktori main. Formatnya menyesuaikan kritea saya, misalnya kalau football_shop yang saya perlukan adalah nama, harga, dekripsi, jenis barang, dan sebagainya. Jangan lupa menambahkan {% csrf_token %} dan {{ form.as_table }} pada create_product.html.
+
 {% csrf_token %} adalah token yang berfungsi sebagai security. Token ini di-generate secara otomatis oleh Django untuk mencegah serangan berbahaya.
 {{ form.as_table }} adalah template tag yang digunakan untuk menampilkan fields form yang sudah dibuat pada forms.py sebagai table.
-
 
 Tambahan hal penting, sebelumnya saya sudah membuat sebuah base.html yang berada pada folder template di direktori utama. ini berfungsi sebagai template dasar yang dapat digunakan sebagai kerangka umum untuk halaman web lainnya di dalam proyek. Dan untuk main.html yang berada di direktori main. Terdapat perubahan yaitu digunakan sebagai extend dari folder template berisi file base.html yang ada di direktori utama(football-shop). Hal ini juga berlaku untuk html yang lainnya seperti create_product.html dan show_product.html.
 
