@@ -58,7 +58,6 @@ Jawab: Penjelasan cukup jelas, saya sangat berterima kasih sudah diberikan cara 
 
 Terima kasih banyak kak.
 
-
 <details>
 <Summary><b>Tugas 3</b></Summary>
 
@@ -164,6 +163,8 @@ Jawab: Untuk tutorial 2, saya memahami dengan baik. Hanya saja banyak sekali err
 <img width="1510" height="861" alt="image" src="https://github.com/user-attachments/assets/bec411a0-aeea-4fbc-9a1b-c7a56b3faefc" />
 <img width="1523" height="891" alt="image" src="https://github.com/user-attachments/assets/897a0623-d03d-4c7a-93b9-f5a305663c4e" />
 
+
+<details>
 
 
 
