@@ -64,9 +64,20 @@ Terima kasih banyak kak.
 Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
 
 Dalam sebuah platform, data delivery itu penting banget karena dipakai buat ngirim data dari satu bagian sistem ke bagian lain. Bayangin aja kita punya aplikasi, pasti ada proses tuker data antara satu komponen dengan komponen lain biar aplikasinya jalan bener. Kalau nggak ada mekanisme ini, tiap bagian bakal jalan sendiri-sendiri tanpa bisa kerja sama. Biar gampang ditransfer, datanya butuh format yang terstruktur dan bisa dimengerti sama semua komponen. Dua format yang bakal saya pakai buat tugas 3 ini adalah XML sama JSON.
-
+Sebagai contoh data delivery:
 - XML biasanya dipakai di sistem lama atau enterprise karena fleksibel banget, lo bisa bikin tag sesuai kebutuhan. Cocok buat data yang rumit.
 - JSON lebih simpel dan ringan karena isinya berbentuk key-value pairs. Makanya sekarang JSON lebih populer, apalagi di API modern dan aplikasi kekinian.
 Jadi intinya, pake XML atau JSON bikin proses pengiriman data jadi lebih konsisten, efisien, dan gampang diintegrasiin. Hasilnya, platform bisa lebih gampang dikembangin, lebih fleksibel, dan jalan sebagai satu sistem utuh.
+
+
+
+4 foto hasil url postman:
+<img width="1517" height="954" alt="image" src="https://github.com/user-attachments/assets/c57f11fc-1fdf-42d4-86ed-eae1424b06d5" />
+<img width="1536" height="923" alt="Screenshot 2025-09-17 102046" src="https://github.com/user-attachments/assets/75ba7fec-1c24-4fca-bb0b-2616bb94523b" />
+<img width="1510" height="861" alt="image" src="https://github.com/user-attachments/assets/bec411a0-aeea-4fbc-9a1b-c7a56b3faefc" />
+<img width="1523" height="891" alt="image" src="https://github.com/user-attachments/assets/897a0623-d03d-4c7a-93b9-f5a305663c4e" />
+
+
+
 
 
