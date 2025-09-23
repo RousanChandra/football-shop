@@ -1,3 +1,5 @@
+Rousan Chandra Syahbunan - 2406435894
+Tautan PWS: https://pbp.cs.ui.ac.id/rousan.chandra/ikearousan
 <details>
 <Summary><b>Tugas 2</b></Summary>
 Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
@@ -183,10 +185,19 @@ Jawab: Untuk tutorial 2, saya memahami dengan baik. Hanya saja banyak sekali err
 
 <details>
 <Summary><b>Tugas 4</b></Summary>
+  
 Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya. 
 Jawab:
 AuthenticationForm adalah form bawaan Django (django.contrib.auth.forms.AuthenticationForm) yang dipakai untuk proses login (sesuai ppt). Form ini mengikat request + POST data, memanggil backend autentikasi (authenticate()), dan memberikan form.get_user() bila kredensial valid.
 
+Kelebihan:
+- Siap pakai, terintegrasi dengan sistem auth Django → hemat waktu.
+- Validasi aman (tidak mengungkap apakah username ada secara eksplisit).
+- Memberikan pesan error terstruktur dan mekanisme validasi yang konsisten, sehingga memudahkan debugging dan mengurangi kemungkinan bug pada proses login.
+
+Kekurangan:
+- UI default sangat sederhana — perlu kustomisasi template agar cocok dengan desain.
+- Tidak mendukung skenario login non-standar (mis. OTP, phone-only login) tanpa membuat form kustom.
 
 </details>
 
