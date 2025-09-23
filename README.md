@@ -188,7 +188,9 @@ Jawab: Untuk tutorial 2, saya memahami dengan baik. Hanya saja banyak sekali err
 <Summary><b>Tugas 4</b></Summary>
   
 Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya. 
+
 Jawab:
+
 AuthenticationForm adalah form bawaan Django (django.contrib.auth.forms.AuthenticationForm) yang dipakai untuk proses login (sesuai ppt). Form ini mengikat request + POST data, memanggil backend autentikasi (authenticate()), dan memberikan form.get_user() bila kredensial valid.
 
 Kelebihan:
@@ -201,7 +203,55 @@ Kekurangan:
 - Tidak mendukung skenario login non-standar (mis. OTP, phone-only login) tanpa membuat form kustom.
 
 Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
+
 Jawab:
+
+Autentikasi adalah proses memverifikasi identitas pengguna: memastikan bahwa entitas yang mencoba mengakses sistem benar-benar adalah siapa yang mereka klaim. Contoh autentikasi: login dengan username/password, autentikasi berbasis token, atau login menggunakan OAuth.
+
+Otorisasi adalah proses menentukan hak dan wewenang pengguna yang telah terverifikasi: setelah kita tahu siapa pengguna, otorisasi menjawab apa yang boleh dia lakukan. Contoh otorisasi: apakah pengguna boleh melihat halaman admin, mengedit produk tertentu, atau menghapus data pengguna lain.
+
+Perbedaan kunci:
+
+Urutan: autentikasi datang sebelum otorisasi. Kita harus mengetahui identitas (atau setidaknya bahwa identitas sudah terverifikasi) sebelum mengecek hak akses.
+
+Fokus: autentikasi fokus pada identitas, otorisasi fokus pada izin/akses.
+
+Data: autentikasi mengandalkan kredensial (password, token), sedangkan otorisasi mengandalkan role, permission, atribut objek, dan kebijakan aplikasi.
+
+Implementasi di Django:
+
+Autentikasi:
+
+1. Model User
+* django.contrib.auth.models.User adalah model bawaan yang menyimpan username, password (ter-hash), email, is_active, is_staff, is_superuser, dan lain-lain. Aplikasi juga dapat menggunakan custom user model yang ditentukan lewat AUTH_USER_MODEL.
+
+2. Mekanisme Verifikasi
+
+Fungsi authenticate() menerima kredensial dan memeriksa backend autentikasi yang aktif. Jika valid, ia mengembalikan instance User.
+
+    from django.contrib.auth import authenticate, login
+    
+    user = authenticate(request, username='alice', password='pw')
+    if user is not None:
+        login(request, user)  # menyimpan user ke session
+
+3. Login & Session
+
+* login(request, user) menaruh identitas pengguna dalam session server-side dan mengaitkan session id ke cookie sessionid di browser klien.
+* request.user (middleware AuthenticationMiddleware) menyediakan akses ke objek user di view/template.
+
+Forms Bawaan
+
+Django menyediakan AuthenticationForm (untuk login) dan UserCreationForm (untuk registrasi) yang memberikan validasi dasar dan integrasi dengan mekanisme auth.
+
+Otorisasi:
+
+- Field bawaan di User: is_staff, is_superuser.
+- Sistem permission (Permission model) dan user.has_perm('app.permission_codename').
+- Grup (Group) untuk mengelompokkan permission.
+- Decorator/view mixin: @login_required, @permission_required, LoginRequiredMixin, PermissionRequiredMixin.
+- Untuk object-level permission Django tidak memiliki implementasi kuat di core — gunakan paket tambahan (mis. django-guardian) bila butuh kontrol per-objek.
+
 
 
 </details>
