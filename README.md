@@ -183,6 +183,9 @@ Jawab: Untuk tutorial 2, saya memahami dengan baik. Hanya saja banyak sekali err
 
 <details>
 <Summary><b>Tugas 4</b></Summary>
+Apa itu Django AuthenticationForm? Jelaskan juga kelebihan dan kekurangannya. 
+Jawab:
+AuthenticationForm adalah form bawaan Django (django.contrib.auth.forms.AuthenticationForm) yang dipakai untuk proses login (sesuai ppt). Form ini mengikat request + POST data, memanggil backend autentikasi (authenticate()), dan memberikan form.get_user() bila kredensial valid.
 
 
 </details>
