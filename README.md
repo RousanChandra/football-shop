@@ -262,7 +262,8 @@ Otorisasi:
 Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
 
 Jawab:
-- Cookies (client-side)
+1. Cookies (client-side)
+
 Kelebihan:
 * Mudah dibuat dan langsung dapat dibaca oleh browser/JavaScript (berguna untuk preferensi UI yang perlu diakses client-side).
 * Tidak memerlukan penyimpanan server tambahan.
@@ -275,17 +276,22 @@ Kekurangan:
 * Dikirim ke server setiap request ke domain terkait → overhead bandwidth & potensi eksposur data.
 * Perlu perlindungan CSRF/SameSite jika cookie dipakai untuk otentikasi.
 
-- Sessions (server-side; contoh: django.contrib.sessions)
+2. Sessions (server-side; contoh: django.contrib.sessions)
+
 Kelebihan:
 * Data disimpan di server (DB/Redis/file), sehingga lebih aman untuk informasi sensitif (user id, shopping cart, token internal).
 * Client hanya menyimpan session id (biasanya dalam cookie sessionid), sehingga risiko manipulasi data menurun.
 * Fleksibel: bisa menyimpan struktur data kompleks tanpa batas cookie.
+
 Kekurangan:
 * Membutuhkan storage server (stateful) — menambah beban storage dan manajemen.
 * Skalabilitas horizontal butuh shared session backend (DB/Redis) atau sticky sessions.
 * Performa: baca/tulis session tiap request bisa menambah latency (tergantung backend).
 * Jika session tidak dikelola baik, bisa menumpuk data kadaluwarsa (cleanup).
 
+Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+
+Jawab:
 
 </details>
 
