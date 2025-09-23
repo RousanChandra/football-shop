@@ -210,17 +210,12 @@ Autentikasi adalah proses memverifikasi identitas pengguna: memastikan bahwa ent
 
 Otorisasi adalah proses menentukan hak dan wewenang pengguna yang telah terverifikasi: setelah kita tahu siapa pengguna, otorisasi menjawab apa yang boleh dia lakukan. Contoh otorisasi: apakah pengguna boleh melihat halaman admin, mengedit produk tertentu, atau menghapus data pengguna lain.
 
-Perbedaan kunci:
+Perbedaan:
+- Urutan autentikasi datang sebelum otorisasi. Kita harus mengetahui identitas (atau setidaknya bahwa identitas sudah terverifikasi) sebelum mengecek hak akses.
+- Autentikasi fokus pada identitas, otorisasi fokus pada izin/akses.
+- Data autentikasi mengandalkan kredensial (password, token), sedangkan data otorisasi mengandalkan role, permission, atribut objek, dan kebijakan aplikasi.
 
-Urutan: autentikasi datang sebelum otorisasi. Kita harus mengetahui identitas (atau setidaknya bahwa identitas sudah terverifikasi) sebelum mengecek hak akses.
-
-Fokus: autentikasi fokus pada identitas, otorisasi fokus pada izin/akses.
-
-Data: autentikasi mengandalkan kredensial (password, token), sedangkan otorisasi mengandalkan role, permission, atribut objek, dan kebijakan aplikasi.
-
-Implementasi di Django:
-
-Autentikasi:
+Implementasi Autentikasi di Django:
 
 1. Model User
 * django.contrib.auth.models.User adalah model bawaan yang menyimpan username, password (ter-hash), email, is_active, is_staff, is_superuser, dan lain-lain. Aplikasi juga dapat menggunakan custom user model yang ditentukan lewat AUTH_USER_MODEL.
@@ -241,7 +236,7 @@ Autentikasi:
 4. Forms Bawaan
 * Django menyediakan AuthenticationForm (untuk login) dan UserCreationForm (untuk registrasi) yang memberikan validasi dasar dan integrasi dengan mekanisme auth.
 
-Otorisasi:
+Implementasi Otorisasi di Django:
 
 1. Permission Bawaan
 * Setiap model di Django secara default dapat memiliki permission seperti add, change, delete, dan view.
@@ -292,6 +287,23 @@ Kekurangan:
 Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
 
 Jawab:
+
+Cookie tidak aman secara default karena seluruh isinya disimpan di sisi klien dan selalu dikirim setiap kali ada request ke server. Kondisi ini menimbulkan sejumlah risiko serius, antara lain:
+
+- Risiko penggunaan cookie:
+
+1. XSS (Cross-Site Scripting) → cookie bisa dicuri lewat script jahat jika tidak diset HttpOnly.
+2. CSRF (Cross-Site Request Forgery) → browser otomatis mengirim cookie, sehingga request berbahaya dari situs lain tetap tampak sah.
+3. Session fixation → penyerang bisa memaksa korban menggunakan session id tertentu untuk mengambil alih akses.
+4. Sniffing → cookie dapat disadap jika koneksi masih HTTP.
+5. Manipulasi client-side → isi cookie bisa diubah langsung oleh pengguna jika tidak ditandatangani atau diverifikasi.
+
+- Cara Django mencegah risiko tersebut:
+1. Session server-side → data penting disimpan di server, klien hanya membawa session id.
+2. Rotasi session otomatis saat login → mencegah session fixation.
+3. CSRF protection → middleware dan token CSRF memastikan request hanya valid jika berasal dari aplikasi sah.
+4. Penggunaan HTTPS dengan SESSION_COOKIE_SECURE dan CSRF_COOKIE_SECURE → melindungi dari sniffing.
+5. Cookie flags (HttpOnly, Secure, SameSite) → melindungi dari akses JavaScript berbahaya, memastikan cookie hanya lewat HTTPS, dan mengurangi risiko CSRF lintas situs.
 
 </details>
 
