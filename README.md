@@ -1,4 +1,5 @@
 Rousan Chandra Syahbunan - 2406435894
+
 Tautan PWS: https://pbp.cs.ui.ac.id/rousan.chandra/ikearousan
 <details>
 <Summary><b>Tugas 2</b></Summary>
@@ -198,6 +199,10 @@ Kelebihan:
 Kekurangan:
 - UI default sangat sederhana — perlu kustomisasi template agar cocok dengan desain.
 - Tidak mendukung skenario login non-standar (mis. OTP, phone-only login) tanpa membuat form kustom.
+
+Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
+Jawab:
+
 
 </details>
 
