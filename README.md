@@ -226,8 +226,7 @@ Autentikasi:
 * django.contrib.auth.models.User adalah model bawaan yang menyimpan username, password (ter-hash), email, is_active, is_staff, is_superuser, dan lain-lain. Aplikasi juga dapat menggunakan custom user model yang ditentukan lewat AUTH_USER_MODEL.
 
 2. Mekanisme Verifikasi
-
-Fungsi authenticate() menerima kredensial dan memeriksa backend autentikasi yang aktif. Jika valid, ia mengembalikan instance User.
+* Fungsi authenticate() menerima kredensial dan memeriksa backend autentikasi yang aktif. Jika valid, ia mengembalikan instance User.
 
     from django.contrib.auth import authenticate, login
     
@@ -235,14 +234,12 @@ Fungsi authenticate() menerima kredensial dan memeriksa backend autentikasi yang
     if user is not None:
         login(request, user)  # menyimpan user ke session
 
-3. Login & Session
-
+4. Login & Session
 * login(request, user) menaruh identitas pengguna dalam session server-side dan mengaitkan session id ke cookie sessionid di browser klien.
 * request.user (middleware AuthenticationMiddleware) menyediakan akses ke objek user di view/template.
 
-Forms Bawaan
-
-Django menyediakan AuthenticationForm (untuk login) dan UserCreationForm (untuk registrasi) yang memberikan validasi dasar dan integrasi dengan mekanisme auth.
+4. Forms Bawaan
+* Django menyediakan AuthenticationForm (untuk login) dan UserCreationForm (untuk registrasi) yang memberikan validasi dasar dan integrasi dengan mekanisme auth.
 
 Otorisasi:
 
