@@ -305,6 +305,30 @@ Cookie tidak aman secara default karena seluruh isinya disimpan di sisi klien da
 4. Penggunaan HTTPS dengan SESSION_COOKIE_SECURE dan CSRF_COOKIE_SECURE → melindungi dari sniffing.
 5. Cookie flags (HttpOnly, Secure, SameSite) → melindungi dari akses JavaScript berbahaya, memastikan cookie hanya lewat HTTPS, dan mengurangi risiko CSRF lintas situs.
 
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+Jawab:
+
+1. Mengimplementasikan fungsi registrasi, login, dan logout untuk memungkinkan pengguna mengakses aplikasi sebelumnya sesuai dengan status login/logoutnya. ->
+
+Bagi jadi tiga:
+- (Sebelumnnya saya sudah mengaktifkan env) Diawal dengan saya membuka views.py yang ada pada subdirektori main pada proyek saya. Lalu menambahkan import UserCreationForm dan messages. Tambahkan fungsi register di bawah ini ke dalam views.py (Sesuai tutorial 3). Selanjutnya memuatlah berkas HTML baru dengan nama register.html pada direktori main/templates. Jangan lupa menambahkan import fungsi register dan path url register di urls.py di main.
+  
+- (hampir sama kayak request) Diawal dengan saya membuka lagi views.py yang ada pada subdirektori main pada proyek saya. Lalu menambahkan import authenticate, login, dan AuthenticationForm di views.py. Selanjutnya menambahkan fungsi login_user ke dalam views.py. Selanjutnya saya membuat berkas HTML baru dengan nama login.html pada direktori main/templates. Jangan lupa menambahkan import fungsi login_user dan path url login_user di urls.py di main.
+  
+- Diawal dengan saya membuka lagi views.py yang ada pada subdirektori main pada proyek saya. Lalu menambahkan import logout di views.py. lalu menambahkan fungsi logout_user di bawah ini ke dalam fungsi views.py. Selanjutnya saya membuat berkas HTML baru dengan nama login.html pada direktori main/templates. Jangan lupa menambahkan import fungsi logout_user dan path url logout_user di urls.py di main.
+
+2. Membuat dua (2) akun pengguna dengan masing-masing tiga (3) dummy data menggunakan model yang telah dibuat sebelumnya untuk setiap akun di lokal. -> 
+Saya telah membuat 2 akun pengguna dan masing-masing 3 produk langsung melalui antarmuka (localhost atau pws) pada environment. Dengan cara saya membuat 1 akun dulu dari request dan login ke akun tersebut. Lalu saya tinggal membuat 3 produk yang saya inginkan (maaf kak, saya gak tau perlu saya jelasin juga contoh2nya. karena ini ngisinya langsung di website, apa saya perlu jelasin contoh2nya juga atau tidak) contohnya saya membuat baju MU, dengan harga 35.000, deksripsi (fans hebat), dan sebagainnya. Setelah membuat 3 produk dari
+akun yang saya pakai. Saya logout dari akun dan membuat akun baru lagi. Setelah itu sama seperti sebelumnnya saya login dan membuat 3 produk yang sesuai keinginan saya (dummy).
+
+3. Menghubungkan model Product dengan User dan menampilkan detail informasi pengguna yang sedang logged in seperti username dan menerapkan cookies seperti last_login pada halaman utama aplikasi (saling berhubungan) ->
+
+Membuka file models.py pada subdirektori main, kemudian tambahkan from django.contrib.auth.models import User. Lalu pada model Product yang sudah dibuat, tambahkan user = models.ForeignKey(User, on_delete=models.CASCADE, null=True). jangan lupa setelah edit model, jalankan python manage.py makemigrations dan python manage.py mirgrate. Selanjutnya membuka kembali views.py yang ada pada subdirektori main, dan ubah potongan kode pada fungsi create_product (sesuai tutorial 3 tapi namanya sesuai direktori saya).
+
+Jangan lupa untuk memodifikasi home(fungsi show_main saya). Saya menambahkan dengan context username = request.user.username dan juga menampilkan last_login dari cookie yang diset saat login.Setelah itu, saya menambahkan filter untuk produk saya sendiri, semua produk di berkas template (sekalian username sama last_login). Oh iya, tambahkan sebuah author untuk mengindetifikasi siapa yang membuat produk tersebut.
+
+
 </details>
 
 
