@@ -228,10 +228,10 @@ Autentikasi:
 2. Mekanisme Verifikasi
 * Fungsi authenticate() menerima kredensial dan memeriksa backend autentikasi yang aktif. Jika valid, ia mengembalikan instance User.
 
-    from django.contrib.auth import authenticate, login
+      from django.contrib.auth import authenticate, login
     
-    user = authenticate(request, username='alice', password='pw')
-    if user is not None:
+      user = authenticate(request, username='alice', password='pw')
+      if user is not None:
         login(request, user)  # menyimpan user ke session
 
 4. Login & Session
@@ -243,12 +243,48 @@ Autentikasi:
 
 Otorisasi:
 
-- Field bawaan di User: is_staff, is_superuser.
-- Sistem permission (Permission model) dan user.has_perm('app.permission_codename').
-- Grup (Group) untuk mengelompokkan permission.
-- Decorator/view mixin: @login_required, @permission_required, LoginRequiredMixin, PermissionRequiredMixin.
-- Untuk object-level permission Django tidak memiliki implementasi kuat di core — gunakan paket tambahan (mis. django-guardian) bila butuh kontrol per-objek.
+1. Permission Bawaan
+* Setiap model di Django secara default dapat memiliki permission seperti add, change, delete, dan view.
+* Permission tersimpan di model Permission dan dapat diperiksa dengan user.has_perm('app_label.codename').
 
+2. Atribut & Role Sederhana
+* is_staff dan is_superuser adalah atribut cepat untuk menentukan akses administratif.
+* is_superuser melewati pemeriksaan permission biasa (memberikan akses penuh).
+
+3. Groups
+* Objek Group mengelompokkan sekumpulan permission; user dapat diberi group untuk memudahkan manajemen hak akses.
+
+4. Dekorator, Mixins, dan Helper
+* @login_required memastikan view hanya diakses oleh user yang terautentikasi.
+* @permission_required('app.codename') memeriksa permission sebelum menjalankan view.
+* Class-based view menawarkan LoginRequiredMixin dan PermissionRequiredMixin.
+
+Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
+
+Jawab:
+- Cookies (client-side)
+Kelebihan:
+* Mudah dibuat dan langsung dapat dibaca oleh browser/JavaScript (berguna untuk preferensi UI yang perlu diakses client-side).
+* Tidak memerlukan penyimpanan server tambahan.
+* Persisten: bisa diset max-age/expires untuk menyimpan preferensi antar-sesi.
+
+Kekurangan:
+* Kapasitas kecil (±4KB per cookie) dan jumlah cookie per domain dibatasi.
+* Mudah dimanipulasi oleh client → tidak boleh dipercaya untuk data sensitif.
+* Rentan XSS jika HttpOnly=False (script jahat bisa baca cookie).
+* Dikirim ke server setiap request ke domain terkait → overhead bandwidth & potensi eksposur data.
+* Perlu perlindungan CSRF/SameSite jika cookie dipakai untuk otentikasi.
+
+- Sessions (server-side; contoh: django.contrib.sessions)
+Kelebihan:
+* Data disimpan di server (DB/Redis/file), sehingga lebih aman untuk informasi sensitif (user id, shopping cart, token internal).
+* Client hanya menyimpan session id (biasanya dalam cookie sessionid), sehingga risiko manipulasi data menurun.
+* Fleksibel: bisa menyimpan struktur data kompleks tanpa batas cookie.
+Kekurangan:
+* Membutuhkan storage server (stateful) — menambah beban storage dan manajemen.
+* Skalabilitas horizontal butuh shared session backend (DB/Redis) atau sticky sessions.
+* Performa: baca/tulis session tiap request bisa menambah latency (tergantung backend).
+* Jika session tidak dikelola baik, bisa menumpuk data kadaluwarsa (cleanup).
 
 
 </details>
