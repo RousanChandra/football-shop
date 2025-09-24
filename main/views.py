@@ -40,6 +40,7 @@ def show_json(request):
     json_data = serializers.serialize("json",  Product_list)
     return HttpResponse(json_data, content_type="application/json")
 
+@login_required(login_url='/login')
 def create_product(request):
     form = ProductForm(request.POST or None)
 
