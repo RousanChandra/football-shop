@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block meta %}
-<title>{{ product.title }} - Ikea Rousan</title>
+<title>{{ product.name }} - Ikea Rousan</title>
 {% endblock meta %}
 
 {% block content %}
@@ -39,7 +39,7 @@
                 </div>
                 
                <h1 class="text-3xl sm:text-4xl font-extrabold text-purple-300 leading-tight mb-4 tracking-tight !text-purple-300 !important">
-                    {{ product.title }}
+                    {{ product.name }}
                 </h1>
                 
                 <div class="flex flex-wrap items-center text-sm text-gray-400 gap-4">
@@ -54,7 +54,7 @@
                 <div class="px-6 sm:px-8">
                     <div class="relative">
                         <img src="{{ product.thumbnail }}" 
-                             alt="{{ product.title }}" 
+                             alt="{{ product.name }}" 
                              class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg shadow-lg">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30"></div>
                     </div>

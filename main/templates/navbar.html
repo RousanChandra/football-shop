@@ -29,50 +29,48 @@
         {% endif %}
       </div>
 
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden flex items-center">
-        <button
-          id="mobile-menu-button"
-          aria-controls="mobile-menu"
-          aria-expanded="false"
-          class="mobile-menu-button p-2 text-slate-100 hover:text-white focus:outline-none"
-          type="button"
-        >
-          <span class="sr-only">Open menu</span>
-          <div class="w-6 h-6 flex flex-col justify-center items-center relative">
-            <span class="hamburger-line block h-0.5 w-6 rounded bg-slate-100 transform transition duration-300 ease-out"></span>
-            <span class="hamburger-line block h-0.5 w-6 rounded my-0.5 bg-slate-100 transform transition duration-300 ease-out"></span>
-            <span class="hamburger-line block h-0.5 w-6 rounded bg-slate-100 transform transition duration-300 ease-out"></span>
-          </div>
-        </button>
-      </div>
+<!-- TARUH INI DI DALAM <nav> - pastikan input berada sebelum label dan sebelum div#mobile-menu -->
+<input id="mobile-menu-toggle" type="checkbox" class="hidden peer" />
+
+<!-- Mobile Menu Button (label toggles checkbox) -->
+<div class="md:hidden flex items-center">
+  <label
+    for="mobile-menu-toggle"
+    aria-controls="mobile-menu"
+    class="mobile-menu-button p-2 text-slate-100 hover:text-white focus:outline-none cursor-pointer"
+    role="button"
+  >
+    <span class="sr-only">Open menu</span>
+    <div class="w-6 h-6 flex flex-col justify-center items-center relative">
+      <span class="hamburger-line block h-0.5 w-6 rounded bg-slate-100 transform transition duration-300 ease-out"></span>
+      <span class="hamburger-line block h-0.5 w-6 rounded my-0.5 bg-slate-100 transform transition duration-300 ease-out"></span>
+      <span class="hamburger-line block h-0.5 w-6 rounded bg-slate-100 transform transition duration-300 ease-out"></span>
     </div>
+  </label>
+</div>
+
+<!-- Mobile Menu: tampil saat checkbox dicentang (peer-checked) -->
+<div id="mobile-menu" class="mobile-menu hidden md:hidden peer-checked:block bg-[#0b0820] px-6 py-6 space-y-4 mt-16">
+  <div class="space-y-1">
+    <a href="/" class="mobile-menu-link block py-3 font-medium">Home</a>
+    <a href="{% url 'main:create_product' %}" class="mobile-menu-link block py-3 font-medium">Create product</a>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="mobile-menu hidden md:hidden">
-    <div class="px-6 py-6 space-y-4">
-      <!-- Mobile Navigation Links -->
-      <div class="space-y-1">
-        <a href="/" class="mobile-menu-link block py-3 font-medium">Home</a>
-        <a href="{% url 'main:create_product' %}" class="mobile-menu-link block py-3 font-medium">Create product</a>
+  <div class="border-t border-slate-700 pt-4">
+    {% if user.is_authenticated %}
+      <div class="mb-4">
+        <div class="font-medium text-white">{{ name|default:user.username }}</div>
+        <div class="text-sm text-slate-300">{{ npm|default:"Student" }} - {{ class|default:"Class" }}</div>
       </div>
+      <a href="{% url 'main:logout' %}" class="mobile-menu-link block text-red-400 py-3 font-medium">Logout</a>
+    {% else %}
+      <div class="space-y-3">
+        <a href="{% url 'main:login' %}" class="mobile-menu-link block py-3 font-medium">Login</a>
+        <a href="{% url 'main:register' %}" class="mobile-menu-link block py-3 font-medium register-btn text-center">Register</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
 
-      <!-- Mobile User Section -->
-      <div class="border-t border-slate-700 pt-4">
-        {% if user.is_authenticated %}
-          <div class="mb-4">
-            <div class="font-medium text-white">{{ name|default:user.username }}</div>
-            <div class="text-sm text-slate-300">{{ npm|default:"Student" }} - {{ class|default:"Class" }}</div>
-          </div>
-          <a href="{% url 'main:logout' %}" class="mobile-menu-link block text-red-400 py-3 font-medium">Logout</a>
-        {% else %}
-          <div class="space-y-3">
-            <a href="{% url 'main:login' %}" class="mobile-menu-link block py-3 font-medium">Login</a>
-            <a href="{% url 'main:register' %}" class="mobile-menu-link block py-3 font-medium register-btn text-center">Register</a>
-          </div>
-        {% endif %}
-      </div>
-    </div>
   </div>
 </nav>
