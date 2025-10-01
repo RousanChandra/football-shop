@@ -1,23 +1,91 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<title>{{ product.title }} - Ikea Rousan</title>
+{% endblock meta %}
+
 {% block content %}
-<p><a href="{% url 'main:home' %}"><button>← Back to Product List</button></a></p>
+<div class="bg-gradient-to-b from-black via-gray-900 to-purple-900 w-full min-h-screen text-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
-<h1>{{ product.name }}</h1>
-<p><b>Kategori:</b> {{ product.category }}<br>
-  <b>Harga:</b> Rp {{ product.price }}
-  {% if product.is_featured %}<br><b>Featured</b>{% endif %}</p>
+        <!-- Back Navigation -->
+        <div class="mb-6">
+            <a href="{% url 'main:home' %}" 
+               class="text-purple-400 hover:text-purple-300 font-medium transition-colors flex items-center gap-1">
+                ← Back to product
+            </a>
+        </div>
 
-{% if product.thumbnail %}
-<img src="{{ product.thumbnail }}" alt="Product thumbnail" width="300">
-<br /><br />
-{% endif %}
+        <!-- Article -->
+        <article class="bg-gray-900/80 backdrop-blur-md rounded-xl border border-purple-600/40 shadow-lg hover:shadow-purple-500/20 transition-all duration-500 overflow-hidden">
+            
+            <!-- Header -->
+            <div class="p-6 sm:p-8">
+                <div class="flex flex-wrap items-center gap-2 mb-4">
+                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-600 text-white shadow">
+                        {{ product.get_category_display }}
+                    </span>
+                    {% if product.is_featured %}
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-400/80 text-black shadow">
+                            ✨ Featured
+                        </span>
+                    {% endif %}
+                    {% if product.is_product_hot %}
+                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-500/80 text-white shadow">
+                            🔥 Hot
+                        </span>
+                    {% endif %}
+                </div>
+                
+               <h1 class="text-3xl sm:text-4xl font-extrabold text-purple-300 leading-tight mb-4 tracking-tight !text-purple-300 !important">
+                    {{ product.title }}
+                </h1>
+                
+                <div class="flex flex-wrap items-center text-sm text-gray-400 gap-4">
+                    <time datetime="{{ product.created_at|date:'c' }}">
+                        {{ product.created_at|date:"M j, Y g:i A" }}
+                    </time>
+                </div>
+            </div>
 
-<p>{{ product.description}}</p>
+            <!-- Featured Image -->
+            {% if product.thumbnail %}
+                <div class="px-6 sm:px-8">
+                    <div class="relative">
+                        <img src="{{ product.thumbnail }}" 
+                             alt="{{ product.title }}" 
+                             class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg shadow-lg">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30"></div>
+                    </div>
+                </div>
+            {% endif %}
 
-{% if news.user %}
-    <p>Author: {{ news.user.username }}</p>
-{% else %}
-    <p>Author: Anonymous</p>
-{% endif %}
+            <!-- Content -->
+            <div class="p-6 sm:p-8">
+                <div class="prose prose-lg max-w-none prose-invert">
+                    <div class="text-gray-200 leading-relaxed whitespace-pre-line text-base sm:text-lg">
+                        {{ product.description }}
+                    </div>
+                </div>
+            </div>
 
+            <!-- Author Info -->
+            <div class="border-t border-purple-700/40 p-6 sm:p-8 bg-black/40 backdrop-blur-md">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <div class="font-semibold text-purple-300">
+                            {% if product.user %}
+                                <p>Author: {{ product.user.username }}</p>
+                            {% else %}
+                                <p>Author: Anonymous</p>
+                            {% endif %}
+                        </div>
+                        <p class="text-sm text-gray-400">Cosmic Contributor</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
 {% endblock content %}

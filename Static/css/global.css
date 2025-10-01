@@ -1,0 +1,76 @@
+/* === Cosmic Theme Short === */
+.cosmic-nav {
+  background: linear-gradient(180deg,#070617,#0b0820);
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  box-shadow: 0 8px 30px rgba(2,6,23,.6);
+  position: relative;
+}
+.cosmic-nav::before,
+.cosmic-page::before {
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(1px 1px at 20% 30%,#fff,transparent 60%),
+             radial-gradient(1px 1px at 70% 40%,#fff,transparent 60%);
+  animation:twinkle 6s linear infinite;opacity:.6;mix-blend-mode:screen;
+}
+@keyframes twinkle{0%,100%{opacity:.7}50%{opacity:1}}
+.nav-link{color:#eee;padding:.4rem .7rem;border-radius:.4rem;font-weight:600}
+.nav-link:hover{color:#fff;box-shadow:0 0 12px rgba(124,58,237,.3)}
+.register-btn{background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;
+  padding:.4rem .9rem;border-radius:.6rem;font-weight:700}
+.cosmic-page{background:linear-gradient(180deg,#06040b,#0b0a17 70%);min-height:100vh;position:relative;color:#eee}
+.cosmic-card{background:rgba(255,255,255,.02);border:1px solid rgba(167,139,250,.2);
+  backdrop-filter:blur(8px);box-shadow:0 8px 30px rgba(2,6,23,.6)}
+.cosmic-card input{background:rgba(10,12,20,.45);color:#eee;border:1px solid rgba(255,255,255,.08)}
+.cosmic-card input:focus{border-color:#7c3aed;box-shadow:0 0 12px rgba(124,58,237,.3)}
+.cosmic-btn{background:linear-gradient(90deg,#7c3aed,#06b6d4);color:#fff;font-weight:600;border-radius:.5rem;padding:.6rem 1rem}
+.cosmic-btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+
+.bg-cosmic {
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  overflow: hidden;
+}
+
+.bg-cosmic::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  animation: moveStars 200s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes moveStars {
+  from { transform: translate(0,0); }
+  to { transform: translate(1000px, 1000px); }
+}
+.cosmic-card input,
+.cosmic-card select,
+.cosmic-card textarea {
+  background: rgba(10, 12, 20, 0.7); /* gelap transparan */
+  color: #eee;                       /* teks putih */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.cosmic-card input:focus,
+.cosmic-card select:focus,
+.cosmic-card textarea:focus {
+  border-color: #7c3aed; /* ungu neon */
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.5);
+  outline: none;
+}
+/* hamburger -> X (works because label is after the checkbox input) */
+#mobile-menu-toggle:checked + label .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(3px, 3px);
+}
+#mobile-menu-toggle:checked + label .hamburger-line:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+#mobile-menu-toggle:checked + label .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(3px, -3px);
+}
