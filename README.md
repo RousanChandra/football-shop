@@ -331,4 +331,91 @@ Jangan lupa untuk memodifikasi home(fungsi show_main saya). Saya menambahkan den
 
 </details>
 
+<details>
+<Summary>Tugas 5</Summary>
+  
+Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+
+Jawab: 
+- !important (catatan: penggunaan sebaiknya minimal)
+- Inline style pada elemen (style="...")
+- Selector dengan ID (#id) → specificity: 0,1,0,0
+- Selector dengan class, attribute, pseudo-class (.class, [attr], :hover) → specificity: 0,0,1,0
+- Selector dengan element/tag atau pseudo-element (div, p, ::before) → specificity: 0,0,0,1
+- Jika specificity sama → yang didefinisikan belakangan (source order) menang.
+
+Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+
+Jawab:
+
+Penting karena sebagian besar pengguna mengakses web melalui perangkat mobile → UX harus baik di semua ukuran layar, SEO & Core Web Vitals: Google mengutamakan mobile-friendly, Meningkatkan konversi & aksesibilitas.
+
+Contoh:
+- Aplikasi yang sudah responsive: Google, Twitter, Medium — tata letak fleksibel, menu mobile, gambar responsif.
+- Aplikasi yang kurang responsive: website lama pemerintahan / UKM yang dibuat hanya untuk desktop — tampil berantakan di mobile, tombol sulit diklik, layout horizontal memaksa scroll ke samping.
+
+Kenapa contoh tersebut berbeda: responsive design membutuhkan breakpoints, fluid grids, dan testing across devices — banyak aplikasi lama tidak dioptimalkan karena waktu/keterbatasan budget.
+
+Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+Jawab:
+
+Margin: ruang di luar border (mengatur jarak antar elemen). Contoh: margin: 16px;
+
+Border: garis di sekeliling elemen (ketebalan, style, warna). Contoh: border: 1px solid #ccc;
+
+Padding: ruang di dalam border antara content dan border (mengatur "jarak dalam"). Contoh: padding: 8px 12px;
+
+[margin] [border] [padding] [ content ]
+Contoh implementasi:
+
+    .card {
+        margin: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 24px;
+      }
+
+Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+
+Jawab:
+
+Flexbox (Flexible Box):
+- Layout 1-dimensional (baris atau kolom).
+- Berguna untuk: navbar, menu, card-row, alignment horizontal/vertical sederhana.
+- Properti: display:flex; flex-direction; justify-content; align-items; gap; flex-wrap; flex-grow
+
+Grid Layout (CSS Grid):
+- Layout 2-dimensional (baris & kolom).
+- Berguna untuk: grid gallery, komplek layout halaman (kanan, kiri, header, footer).
+- Properti: display:grid; grid-template-columns; grid-template-rows; gap; grid-auto-flow;
+
+Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!
+
+Jawab:
+
+1. Persiapan
+- Siapkan model Product (title, content, thumbnail, category, is_featured, user, created_at, views).
+- Buat ProductForm (ModelForm) untuk create & edit.
+
+2. Views & URLs
+- Buat view create, edit, delete, detail, list.
+- Tambahkan url patterns pada main/urls.py.
+- Pastikan edit & delete hanya boleh oleh owner (if product.user != request.user).
+
+3. Templates
+- base.html buat layout dasar & include static/css/cosmic.css. Pastikan <body> punya class theme (cosmic-page jika ingin global).
+- product_list.html menampilkan placeholder jika kosong: {% if not product_list %} → show image + message + CTA.
+- card_product.html buat desain card unik (tidak copy tutorial) dan tambahkan tombol Edit & Delete (form POST untuk delete).
+- product_create.html, product_edit.html, product_detail.html kustomisasi sesuai tema (cosmic).
+
+4. Styling
+- Buat static/css/cosmic.css → background gradient, card blur, input dark, tombol neon.
+- Untuk form fields, override default input style di .cosmic-card input, textarea, select { ... } supaya field tidak muncul putih.
+
+5. Responsiveness
+- Gunakan Tailwind (utility) atau media queries: grid berubah kolom pada breakpoints (sm/md/lg).
+- Navbar responsive: desktop horizontal, mobile hamburger + slide-down menu.
+
+
+</details>
 
