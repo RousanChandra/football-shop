@@ -45,9 +45,9 @@ def create_product(request):
     form = ProductForm(request.POST or None)
 
     if form.is_valid() and request.method == 'POST':
-        news_entry = form.save(commit = False)
-        news_entry.user = request.user
-        news_entry.save()
+        product_entry = form.save(commit = False)
+        product_entry.user = request.user
+        product_entry.save()
         return redirect('main:home')
 
     context = {'form': form}
@@ -86,10 +86,16 @@ def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Your account has been successfully created!')
-            return redirect('main:login')
-    context = {'form':form}
+            try:
+                form.save()
+                messages.success(request, 'Your account has been successfully created!')
+                return redirect('main:login')
+            except IntegrityError:
+                form.add_error('username', 'Username sudah dipakai. Silakan pilih yang lain.')
+    else:
+        form = UserCreationForm()
+
+    context = {'form': form}
     return render(request, 'register.html', context)
 
 def login_user(request):
@@ -113,8 +119,8 @@ def logout_user(request):
     return response
 
 def edit_product(request, id):
-    news = get_object_or_404(Product, pk=id)
-    form = ProductForm(request.POST or None, instance=news)
+    product = get_object_or_404(Product, pk=id)
+    form = ProductForm(request.POST or None, instance=product)
     if form.is_valid() and request.method == 'POST':
         form.save()
         return redirect('main:home')
@@ -126,7 +132,7 @@ def edit_product(request, id):
     return render(request, "edit_product.html", context)
 
 def delete_product(request, id):
-    news = get_object_or_404(Product, pk=id)
-    news.delete()
+    product = get_object_or_404(Product, pk=id)
+    product.delete()
     return HttpResponseRedirect(reverse('main:home'))
 
