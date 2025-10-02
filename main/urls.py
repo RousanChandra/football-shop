@@ -17,3 +17,4 @@ urlpatterns = [
     path('product/<uuid:id>/edit', edit_product, name='edit_product'),
     path('news/<uuid:id>/delete', delete_product, name='delete_product'),
 ] 
+ 

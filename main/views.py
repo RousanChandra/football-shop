@@ -13,7 +13,7 @@ from django.urls import reverse
 from django.db import IntegrityError
 
 # Create your views here.
-
+ 
 @login_required(login_url='/login')
 def home(request):
     filter_type = request.GET.get("filter", "all")  # default 'all'
