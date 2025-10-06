@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-+i1a1+wqmf048*(vja7gtgq#n6+s82jx89u#=7x76qx#(*3zr#
 # SECURITY WARNING: don't run with debug turned on in production!
 
 PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1","rousan-chandra-ikearousan.pbp.cs.ui.ac.id"]
 
@@ -145,12 +145,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = '/static/'
-if DEBUG:
-    STATICFILES_DIRS = [
+
+STATICFILES_DIRS = [
         BASE_DIR / 'static', # merujuk ke /static root project pada mode development
-    ]
-else:
-    STATIC_ROOT = BASE_DIR / 'staticfiles' # merujuk ke /static root project pada mode production
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles' # merujuk ke /static root project pada mode production
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
