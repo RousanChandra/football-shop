@@ -4,17 +4,12 @@
 {% endblock meta %}
 
 {% block content %}
-<div class="min-h-screen w-full bg-gradient-to-br from-purple-900 via-black to-indigo-900">
-  <div class="min-h-screen w-full bg-cover bg-center" 
-     style="background-image: url('https://www.nasa.gov/sites/default/files/thumbnails/image/potw2046a.jpg');">
-     <div class="bg-cosmic min-h-screen w-full relative">
-
-
+<div class="bg-gradient-to-br from-black via-black-900 to-blue-900 w-full min-h-screen text-gray-200">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     
     <!-- Back Navigation -->
     <div class="mb-6">
-      <a href="{% url 'main:home' %}" class="text-gray-600 hover:text-gray-900 font-medium transition-colors">
+       <a href="{% url 'main:home' %}" class="text-gray-200 hover:text-white font-medium transition-colors">
         ← Back to product
       </a>
     </div>
@@ -33,11 +28,11 @@
             <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
               {{ field.label }}
             </label>
-            <div class="w-full">
+            <div class="mt-1 text-sm text-gray-500">
               {{ field }}
             </div>
             {% if field.help_text %}
-              <p class="mt-1 text-sm text-gray-500">{{ field.help_text }}</p>
+              <p class="mt-1 text-sm text-blue-500">{{ field.help_text }}</p>
             {% endif %}
             {% for error in field.errors %}
               <p class="mt-1 text-sm text-red-600">{{ error }}</p>
