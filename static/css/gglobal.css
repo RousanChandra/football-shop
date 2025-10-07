@@ -13,7 +13,29 @@
   overflow: hidden;
   z-index: 0;
 }
+.form-style {
+  overflow-x: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 
+.form-style input,
+.form-style select,
+.form-style textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+}
+
+@media (max-width: 640px) {
+  .form-style {
+    padding: 1rem;
+    margin: 0 0.5rem;
+  }
+}
 /* large soft nebula blobs (furthest back) */
 .bg-cosmic::before {
   content: '';
@@ -63,4 +85,7 @@
   50% { transform: translate3d(4%, -3%, 0) scale(1.02); }
   100% { transform: translate3d(0,0,0) scale(1); }
 }
- 
+.register-btn {
+  background-color: white;
+  color: black;
+}
