@@ -220,13 +220,23 @@ function filterAndDisplayProduct() {
 
 /* Fetch */
 async function fetchProductFromServer() {
-  try {
-    displayPageSection({ showLoading: true });
-    // sertakan credentials agar request membawa cookie session (jika endpoint pakai session auth)
-    const response = await fetch(PRODUCT_API_ENDPOINT, {
-      headers: { 'Accept': 'application/json' },
-      credentials: 'same-origin'
-    });
+    try {
+        console.log('Starting to fetch products...');
+        displayPageSection({ showLoading: true });
+        
+        const response = await fetch(PRODUCT_API_ENDPOINT, {
+            headers: { 'Accept': 'application/json' },
+            credentials: 'same-origin'
+        });
+
+        console.log('Fetch response status:', response.status);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log('Products data received:', data);
 
     const status = response.status;
     const contentType = response.headers.get('content-type') || '';

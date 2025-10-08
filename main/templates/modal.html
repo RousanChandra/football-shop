@@ -20,6 +20,7 @@
     <!-- Modal body -->
     <div class="px-6 py-4 space-y-6 form-style">
       <form id="productForm">
+        {% csrf_token %} 
         <div class="mb-4">
           <label for="name" class="block text-sm font-medium text-white-700">Name</label>
           <input type="text" id="name" name="name"
@@ -91,26 +92,52 @@
         modal.classList.add('hidden');
       }, 150); 
   }
-  async function addProductEntry() {
-    await fetch("{% url 'main:add_product_entry_ajax' %}", {
-      method: "POST",
-      body: new FormData(document.querySelector('#productForm')),
-    })
+// Tambahkan fungsi untuk get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
-    document.getElementById("productForm").reset();
-    hideModal();
-      
-    // Show toast notification
-    showToast('Product added successfully!', '', 'success');
+async function addProductEntry() {
+    try {
+        const formData = new FormData(document.querySelector('#productForm'));
+        const csrftoken = getCookie('csrftoken');
+        
+        const response = await fetch("{% url 'main:add_product_entry_ajax' %}", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'X-CSRFToken': csrftoken
+            }
+        });
 
-    // Dispatch custom event to notify main.html about new data
-  document.dispatchEvent(new CustomEvent('productAdded'));
+        if (response.status === 201) {
+            document.getElementById("productForm").reset();
+            hideModal();
+            
+            // Show success toast
+            showToast('Success', 'Product added successfully!', 'success', 3000);
 
-    return false;
-  }
-  document.getElementById("productForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    addProductEntry();
-})
+            // Refresh product list
+            document.dispatchEvent(new CustomEvent('productAdded'));
+        } else {
+            const errorText = await response.text();
+            throw new Error(`Server returned ${response.status}: ${errorText}`);
+        }
+    } catch (error) {
+        console.error('Error adding product:', error);
+        showToast('Error', 'Failed to add product: ' + error.message, 'error', 5000);
+    }
+}
 
 </script> 
