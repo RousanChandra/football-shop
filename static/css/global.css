@@ -1,4 +1,47 @@
 /* === REPLACE .bg-cosmic, .bg-cosmic::before, .bg-cosmic::after (and add keyframes) === */
+/* tambahan untuk form dark/cosmic */
+.cosmic-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 14px;
+  padding: 1.25rem;
+  box-shadow: 0 12px 40px rgba(2,6,23,0.7);
+  backdrop-filter: blur(6px);
+  color: #e6eef9;
+}
+
+/* style input/textarea/select yang gelap dan matching bg-cosmic */
+.cosmic-input, .cosmic-textarea, .cosmic-select {
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #e6eef9;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  outline: none;
+}
+.cosmic-input::placeholder, .cosmic-textarea::placeholder { color: rgba(230,238,249,0.42); }
+
+.cosmic-input:focus, .cosmic-textarea:focus, .cosmic-select:focus {
+  box-shadow: 0 6px 18px rgba(99,102,241,0.12), 0 0 0 4px rgba(99,102,241,0.06);
+  border-color: rgba(99,102,241,0.9);
+}
+
+/* tombol */
+.btn-cosmic {
+  background: linear-gradient(90deg, #7c3aed 0%, #4f46e5 50%, #06b6d4 100%);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(79,70,229,0.14);
+}
+.btn-ghost {
+  background: transparent;
+  color: rgba(230,238,249,0.9);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+}
 
 .bg-cosmic {
   position: relative;

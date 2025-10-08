@@ -2,90 +2,146 @@
 {% load static %}
 
 {% block meta %}
-<title>{{ product.name }} - Ikea Rousan</title>
+<title>Product Detail - Football Product</title>
 {% endblock meta %}
 
 {% block content %}
-<div class="bg-gradient-to-b from-black via-gray-900 to-purple-900 w-full min-h-screen text-gray-200">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="bg-gradient-to-br from-black via-purple-900 to-blue-900 w-full min-h-screen text-gray-200">
+  <div class="max-w-4xl mx-auto px-6 sm:px-8 py-12">
 
-        <!-- Back Navigation -->
-        <div class="mb-6">
-            <a href="{% url 'main:home' %}" 
-               class="text-purple-400 hover:text-purple-300 font-medium transition-colors flex items-center gap-1">
-                ← Back to product
-            </a>
-        </div>
- 
-        <!-- Article -->
-        <article class="bg-gray-900/80 backdrop-blur-md rounded-xl border border-purple-600/40 shadow-lg hover:shadow-purple-500/20 transition-all duration-500 overflow-hidden">
-            
-            <!-- Header -->
-            <div class="p-6 sm:p-8">
-                <div class="flex flex-wrap items-center gap-2 mb-4">
-                    <span class="px-3 py-1 rounded-full text-xs font-semibold bg-purple-600 text-white shadow">
-                        {{ product.get_category_display }}
-                    </span>
-                    {% if product.is_featured %}
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-400/80 text-black shadow">
-                            ✨ Featured
-                        </span>
-                    {% endif %}
-                    {% if product.is_product_hot %}
-                        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-red-500/80 text-white shadow">
-                            🔥 Hot
-                        </span>
-                    {% endif %}
-                </div>
-                
-               <h1 class="text-3xl sm:text-4xl font-extrabold text-purple-300 leading-tight mb-4 tracking-tight !text-purple-300 !important">
-                    {{ product.name }}
-                </h1>
-                
-                <div class="flex flex-wrap items-center text-sm text-gray-400 gap-4">
-                    <time datetime="{{ product.created_at|date:'c' }}">
-                        {{ product.created_at|date:"M j, Y g:i A" }}
-                    </time>
-                </div>
-            </div>
-
-            <!-- Featured Image -->
-            {% if product.thumbnail %}
-                <div class="px-6 sm:px-8">
-                    <div class="relative">
-                        <img src="{{ product.thumbnail }}" 
-                             alt="{{ product.name }}" 
-                             class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-lg shadow-lg">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30"></div>
-                    </div>
-                </div>
-            {% endif %}
-
-            <!-- Content -->
-            <div class="p-6 sm:p-8">
-                <div class="prose prose-lg max-w-none prose-invert">
-                    <div class="text-gray-200 leading-relaxed whitespace-pre-line text-base sm:text-lg">
-                        {{ product.description }}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Author Info -->
-            <div class="border-t border-purple-700/40 p-6 sm:p-8 bg-black/40 backdrop-blur-md">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <div class="font-semibold text-purple-300">
-                            {% if product.user %}
-                                <p>Author: {{ product.user.username }}</p>
-                            {% else %}
-                                <p>Author: Anonymous</p>
-                            {% endif %}
-                        </div>
-                        <p class="text-sm text-gray-400">Cosmic Contributor</p>
-                    </div>
-                </div>
-            </div>
-        </article>
+    <!-- Back Navigation -->
+    <div class="mb-8">
+      <a href="{% url 'main:home' %}" class="text-blue-400 hover:text-white font-medium transition-colors">
+        ← Back to Product
+      </a>
     </div>
+
+    <!-- Loading State -->
+    <div id="loading-state" class="text-center py-16">
+      <svg class="animate-spin h-8 w-8 text-green-400 inline-block mb-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+      </svg>
+      <p class="text-gray-400">Loading product detail...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="text-center py-16 hidden">
+      <div class="text-red-400 text-5xl mb-3">⚠️</div>
+      <h3 class="text-lg font-semibold text-white mb-2">Failed to load Product</h3>
+      <p class="text-gray-400">Please try again later.</p>
+    </div>
+
+    <!-- Product Detail -->
+    <article id="article-description" class="hidden space-y-8">
+
+      <!-- Header -->
+      <header>
+        <div id="badges-container" class="flex flex-wrap items-center gap-3 mb-4"></div>
+        <h1 id="article-name" class="text-4xl font-bold text-white mb-3"></h1>
+      </header>
+
+      <!-- Featured Image -->
+      <div id="featured-image-container" class="hidden">
+        <img id="featured-image"
+             src=""
+             alt=""
+             class="w-full h-80 object-cover rounded-xl shadow-lg shadow-purple-900/40 border border-purple-800/40">
+      </div>
+
+      <!-- Description -->
+      <section>
+        <p id="article-description-text" class="text-gray-200 leading-relaxed whitespace-pre-line text-lg"></p>
+      </section>
+
+      <!-- Author -->
+      <footer class="pt-6 border-t border-purple-800/50 text-gray-400 text-sm">
+        <p id="article-author"></p>
+      </footer>
+    </article>
+  </div>
 </div>
+
+<script>
+const product_ID = "{{ product.id }}";
+const product_DETAIL_ENDPOINT = `{% url 'main:show_json_by_id' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', product_ID);
+
+const loadingState = document.getElementById('loading-state');
+const errorState = document.getElementById('error-state');
+const articleDescription = document.getElementById('article-description');
+const badgesContainer = document.getElementById('badges-container');
+const articleName = document.getElementById('article-name');
+
+const featuredImageContainer = document.getElementById('featured-image-container');
+const featuredImage = document.getElementById('featured-image');
+const articleDescriptionText = document.getElementById('article-description-text');
+const articleAuthor = document.getElementById('article-author');
+
+function showState(state) {
+  loadingState.classList.toggle('hidden', state !== 'loading');
+  errorState.classList.toggle('hidden', state !== 'error');
+  articleDescription.classList.toggle('hidden', state !== 'ready');
+}
+
+function getCategoryLabel(categoryCode) {
+  const categoryMapping = {
+    bolasepak: 'Bola Sepak',
+    bolalatihan: 'Bola Latihan',
+    pakaian: 'Pakaian',
+    sepatusepakbola: 'Sepatu Sepak Bola',
+    aksesoris: 'Aksesoris',
+    gawang: 'Gawang',
+    budget: 'Budget',
+  };
+  return categoryMapping[categoryCode] || categoryCode;
+}
+
+function renderArticle(product) {
+  articleName.textContent = product.name;
+  document.title = `${product.name} - Football Product`;
+
+  badgesContainer.innerHTML = '';
+
+  const categoryBadge = document.createElement('span');
+  categoryBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-blue-500/20 text-gray-400 border border-blue-500/40';
+  categoryBadge.textContent = getCategoryLabel(product.category);
+  badgesContainer.appendChild(categoryBadge);
+
+  if (product.is_featured) {
+    const featuredBadge = document.createElement('span');
+    featuredBadge.className = 'inline-flex items-center px-3 py-1 rounded-md text-xs font-medium bg-purple-600/30 text-purple-300 border border-purple-500/40';
+    featuredBadge.textContent = 'Featured';
+    badgesContainer.appendChild(featuredBadge);
+  }
+
+
+
+
+  if (product.thumbnail) {
+    featuredImage.src = product.thumbnail;
+    featuredImage.alt = product.name;
+    featuredImageContainer.classList.remove('hidden');
+  } else {
+    featuredImageContainer.classList.add('hidden');
+  }
+
+  articleDescriptionText.textContent = product.description;
+  articleAuthor.textContent = `Author: ${product.user_username || 'Anonymous'}`;
+}
+
+async function loadproductDetail() {
+  try {
+    showState('loading');
+    const response = await fetch(product_DETAIL_ENDPOINT, { headers: { 'Accept': 'application/json' } });
+    if (!response.ok) throw new Error('Failed to fetch product detail');
+    const productData = await response.json();
+    renderArticle(productData);
+    showState('ready');
+  } catch (error) {
+    console.error('Error loading product detail:', error);
+    showState('error');
+  }
+}
+loadproductDetail();
+</script>
 {% endblock content %}
