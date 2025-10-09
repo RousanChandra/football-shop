@@ -273,8 +273,8 @@ async function loadProductDetail() {
             const txt = await response.text().catch(()=>'<no-body>');
             console.error('Response not ok:', response.status, txt);
             throw new Error(`Fetch failed: ${response.status}`);
-        }
-
+        } 
+ 
         let productData;
         try {
             productData = await response.json();
