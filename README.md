@@ -420,9 +420,102 @@ Jawab:
 </details>
 <details>
 <Summary><b>Tugas 6</b></Summary>
- Apa perbedaan antara synchronous request dan asynchronous request?
- Bagaimana AJAX bekerja di Django (alur request–response)?
+  
+ 1. Perbedaan Synchronous vs Asynchronous Request
+- Synchronous Request:
+
+Browser menunggu response dari server sebelum melanjutkan eksekusi
+
+Halaman web ter-refresh sepenuhnya
+
+User experience terputus selama loading
+
+Contoh: Form submit tradisional
+
+- Asynchronous Request (AJAX):
+
+Browser mengirim request tanpa menghentikan interaksi user
+
+Halaman tidak perlu reload
+
+Response diproses di background
+
+Contoh: Like button, live search, infinite scroll
+  
+2. Bagaimana AJAX bekerja di Django (alur request–response)?
+
+   Alur Request-Response:
+   Client (JavaScript) 
+    → AJAX Request (Fetch API/jQuery) 
+    → Django URL Router 
+    → Django View (return JsonResponse) 
+    → Client menerima JSON 
+    → Update DOM secara dinamis
+   Contoh:
+   # views.py
+
+       def api_view(request):
+        data = {'status': 'success', 'message': 'Data loaded'}
+        return JsonResponse(data)
  Apa keuntungan menggunakan AJAX dibandingkan render biasa di Django?
+ AJAX:
+
+✅ User experience lebih smooth
+
+✅ Mengurangi bandwidth (hanya data, bukan seluruh HTML)
+
+✅ Interaksi real-time tanpa reload
+
+✅ Aplikasi terasa seperti native app
+
+Render Biasa:
+
+❌ Full page reload setiap aksi
+
+❌ Lebih banyak bandwidth
+
+❌ User experience kurang responsif
  Bagaimana cara memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django?
+ Best Practices:
+
+✅ CSRF Protection: Sertakan token CSRF di setiap request
+
+✅ Input Validation: Validasi di server-side meski sudah di client-side
+
+✅ HTTPS: Enkripsi data sensitif
+
+✅ Rate Limiting: Prevent brute force attacks
+
+✅ Session Management: Gunakan Django's built-in session
+
  Bagaimana AJAX mempengaruhi pengalaman pengguna (User Experience) pada website?
+ Positive Impact:
+
+🚀 Speed: Loading lebih cepat, tidak perlu reload halaman
+
+💫 Fluidity: Transisi yang smooth antara state
+
+🎯 Responsive: Feedback instan untuk user actions
+
+📱 App-like Feel: Pengalaman seperti mobile app
+
+Considerations:
+
+⚠️ Error Handling: Harus handle network errors dengan baik
+
+⚠️ Loading States: Tampilkan feedback selama proses
+
+⚠️ Browser History: Perlu handle URL changes untuk bookmarking
+
+⚠️ Accessibility: Pastikan tetap accessible untuk screen readers
+
+Contoh UX Improvement:
+
+Toast notifications untuk feedback actions
+
+Loading spinner selama proses
+
+Auto-save tanpa user intervention
+
+Real-time form validation
 </details>
