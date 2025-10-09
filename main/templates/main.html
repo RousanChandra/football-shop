@@ -14,7 +14,7 @@
     <!-- Header Section -->
     <div class="mb-10 text-center">
       <h1 class="text-4xl font-extrabold text-blue-300 mb-2 tracking-tight">
-        ✦ Best Football Product ✦
+        ✦ Best Football product ✦
       </h1>
       <p class="text-gray-400 text-lg">
         Stay updated with the <span class="text-green-400">latest good</span> and <span class="text-pink-400">beutiful product</span>
@@ -22,9 +22,13 @@
     </div>
     <!-- Button to open modal -->
     <button onclick="showModal()" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-800 via-indigo-800 to-blue-900 text-white font-semibold rounded-md shadow-[0_0_15px_rgba(100,100,255,0.5)] hover:shadow-[0_0_25px_rgba(120,120,255,0.8)] hover:scale-105 transition-all mb-4">
-  Create Product by AJAX
+  Create product by AJAX
 </button>
-    
+      <!-- Tombol Refresh -->
+  <button onclick="refreshProducts()" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-green-800 to-emerald-700 text-white font-semibold rounded-md shadow-[0_0_15px_rgba(0,200,100,0.5)] hover:shadow-[0_0_25px_rgba(0,220,120,0.8)] hover:scale-105 transition-all">
+    Refresh Products
+  </button>
+</div>
     <!-- Filter Section -->
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-10 bg-gray-900/60 backdrop-blur-md rounded-lg border border-blue-600/40 p-5 shadow-lg">
       <div class="flex space-x-3 mb-4 sm:mb-0">
@@ -43,7 +47,7 @@
     </div>
 
     <!-- Loading State -->
-    <div id="loading" class="bg-white rounded-lg border border-gray-200 p-12 text-center hidden">
+    <div id="loading" class="bg-blue rounded-lg border border-blue-200 p-12 text-center hidden">
       <svg class="animate-spin h-8 w-8 text-blue-600 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
@@ -73,7 +77,7 @@
 
 <script>
 // Configuration
-const PRODUCT_API_ENDPOINT = "{% url 'main:show_json' %}";
+const product_API_ENDPOINT = "{% url 'main:show_json' %}";
 const CURRENT_USER_ID = "{{ user.id|default_if_none:'' }}";
 
 // DOM Elements
@@ -81,23 +85,23 @@ const loadingSpinner = document.getElementById('loading');
 const errorMessage = document.getElementById('error');
 const emptyStateDisplay = document.getElementById('empty');
 const productGridContainer = document.getElementById('grid');
-const showAllProductButton = document.getElementById('filter-all');
-const showMyProductButton = document.getElementById('filter-my');
+const showAllproductButton = document.getElementById('filter-all');
+const showMyproductButton = document.getElementById('filter-my');
 
 // State Variables
 let activeFilter = 'all';
-let allProductData = [];
+let allproductData = [];
 
 // Update filter button appearance
 function updateFilterButtonsAppearance() {
-  if (!showAllProductButton || !showMyProductButton) return;
+  if (!showAllproductButton || !showMyproductButton) return;
   
   if (activeFilter === 'all') {
-    showAllProductButton.className = 'bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-700';
-    showMyProductButton.className = 'bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-600 hover:text-white';
+    showAllproductButton.className = 'bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-700';
+    showMyproductButton.className = 'bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-600 hover:text-white';
   } else {
-    showMyProductButton.className = 'bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-700';
-    showAllProductButton.className = 'bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-600 hover:text-white';
+    showMyproductButton.className = 'bg-blue-600 text-white px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-700';
+    showAllproductButton.className = 'bg-white text-gray-700 border border-gray-300 px-4 py-2 rounded-md font-medium transition-colors hover:bg-blue-600 hover:text-white';
   }
 }
 
@@ -128,27 +132,27 @@ function getReadableCategoryName(categoryCode) {
   return categoryMapping[categoryCode] || categoryCode;
 }
 // Create product card element
-function buildProductCardElement(productItem) {
+// Create product card element
+function buildproductCardElement(productItem) {
   const articleElement = document.createElement('article');
-  // card cosmic, rounded, soft shadow, no plain white box
   articleElement.className = 'rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/5 bg-gradient-to-br from-[#041022] via-[#1a0f2e] to-[#2b0a58] text-white flex flex-col h-full';
 
   const detailLink = `{% url 'main:show_product' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', productItem.id);
   const editLink = `{% url 'main:edit_product' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', productItem.id);
   const deleteLink = `{% url 'main:delete_product' '00000000-0000-0000-0000-000000000000' %}`.replace('00000000-0000-0000-0000-000000000000', productItem.id);
 
-  // formattedDate safe (optional)
-  const formattedDate = productItem.created_at ? new Date(productItem.created_at).toLocaleDateString('id-ID', { year:'numeric', month:'short', day:'numeric' }) : '';
-
   const categoryLabel = getReadableCategoryName(productItem.category);
   const isFeatured = !!productItem.is_featured;
-  const views = Number(productItem.product_views || 0);
-  const isHot = views > 20;
 
-  // thumbnail area: taller, with subtle overlay
+  // Format price
+  const price = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR'
+  }).format(productItem.price || 0);
+
   const thumbnailHtml = productItem.thumbnail
     ? `<div class="relative h-44 w-full bg-center bg-cover">
-         <img src="${productItem.thumbnail}" alt="${(productItem.name||'')}" class="w-full h-full object-cover">
+         <img src="${productItem.thumbnail}" alt="${productItem.name || ''}" class="w-full h-full object-cover">
          <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
        </div>`
     : `<div class="h-44 w-full bg-gradient-to-br from-white/5 to-white/3 flex items-center justify-center">
@@ -173,7 +177,6 @@ function buildProductCardElement(productItem) {
         </div>
         <div class="flex items-center gap-2">
           ${featuredBadge}
-
         </div>
       </div>
 
@@ -181,6 +184,7 @@ function buildProductCardElement(productItem) {
         <h3 class="text-xl font-semibold text-white mb-1 line-clamp-2">
           <a href="${detailLink}" class="hover:underline text-cyan-100">${productItem.name || ''}</a>
         </h3>
+        <p class="text-lg font-bold text-green-400 mb-2">${price}</p>
         <p class="text-sm text-slate-200/80 line-clamp-3">${productItem.description || ''}</p>
       </div>
 
@@ -194,49 +198,39 @@ function buildProductCardElement(productItem) {
   return articleElement;
 }
 
-function renderAllProductCards(productItems) {
+function renderAllproductCards(productItems) {
   if (!productGridContainer) return;
   productGridContainer.innerHTML = '';
   productItems.forEach(item => {
-    productGridContainer.appendChild(buildProductCardElement(item));
+    productGridContainer.appendChild(buildproductCardElement(item));
   });
 }
 
 /* Filter & display */
-function filterAndDisplayProduct() {
+function filterAndDisplayproduct() {
   updateFilterButtonsAppearance();
 
   const filtered = activeFilter === 'all'
-    ? allProductData
-    : allProductData.filter(p => Number(p.user_id) === Number(CURRENT_USER_ID));
+    ? allproductData
+    : allproductData.filter(p => Number(p.user_id) === Number(CURRENT_USER_ID));
 
   if (!filtered || filtered.length === 0) {
     displayPageSection({ showEmpty: true });
   } else {
-    renderAllProductCards(filtered);
+    renderAllproductCards(filtered);
     displayPageSection({ showGrid: true });
   }
 }
 
 /* Fetch */
-async function fetchProductFromServer() {
-    try {
-        console.log('Starting to fetch products...');
-        displayPageSection({ showLoading: true });
-        
-        const response = await fetch(PRODUCT_API_ENDPOINT, {
-            headers: { 'Accept': 'application/json' },
-            credentials: 'same-origin'
-        });
-
-        console.log('Fetch response status:', response.status);
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        console.log('Products data received:', data);
+async function fetchproductFromServer() {
+  try {
+    displayPageSection({ showLoading: true });
+    // sertakan credentials agar request membawa cookie session (jika endpoint pakai session auth)
+    const response = await fetch(product_API_ENDPOINT, {
+      headers: { 'Accept': 'application/json' },
+      credentials: 'same-origin'
+    });
 
     const status = response.status;
     const contentType = response.headers.get('content-type') || '';
@@ -278,17 +272,17 @@ async function fetchProductFromServer() {
 
     // terima beberapa bentuk: array atau { results: [...] } atau { data: [...] }
     if (Array.isArray(productData)) {
-      allProductData = productData;
+      allproductData = productData;
     } else if (Array.isArray(productData.results)) {
-      allProductData = productData.results;
+      allproductData = productData.results;
     } else if (Array.isArray(productData.data)) {
-      allProductData = productData.data;
+      allproductData = productData.data;
     } else {
-      allProductData = [];
-      console.warn('Unknown JSON shape, setting allProductData = []');
+      allproductData = [];
+      console.warn('Unknown JSON shape, setting allproductData = []');
     }
 
-    filterAndDisplayProduct();
+    filterAndDisplayproduct();
   } catch (err) {
     console.error('Error loading product (unexpected):', err);
     if (errorMessage) {
@@ -298,30 +292,42 @@ async function fetchProductFromServer() {
     displayPageSection({ showError: true });
   }
 }
-/* Events */
-function handleShowAllProductClick(e) {
-  e && e.preventDefault();
-  activeFilter = 'all';
-  filterAndDisplayProduct();
-}
-function handleShowMyProductClick(e) {
-  e && e.preventDefault();
-  activeFilter = 'my';
-  filterAndDisplayProduct();
-}
+  /* Events */
+  function handleShowAllproductClick(e) {
+    e && e.preventDefault();
+    activeFilter = 'all';
+    filterAndDisplayproduct();
+  }
+  function handleShowMyproductClick(e) {
+    e && e.preventDefault();
+    activeFilter = 'my';
+    filterAndDisplayproduct();
+  }
 
-/* Init */
-function initializeProductPage() {
-  if (showAllProductButton) showAllProductButton.addEventListener('click', handleShowAllProductClick);
-  if (showMyProductButton)  showMyProductButton.addEventListener('click', handleShowMyProductClick);
-  fetchProductFromServer();
-}
-initializeProductPage()
+  /* Init */
+  function initializeproductPage() {
+    if (showAllproductButton) showAllproductButton.addEventListener('click', handleShowAllproductClick);
+    if (showMyproductButton)  showMyproductButton.addEventListener('click', handleShowMyproductClick);
+    fetchproductFromServer();
+  }
+  initializeproductPage()
 
-document.addEventListener('productAdded', function() {
+  document.addEventListener('productAdded', function() {
     // Refresh data without page reload
-    console.log('Product added event received, refreshing data...');
-    fetchProductFromServer();
+    
+    fetchproductFromServer();
 });
+// Refresh function
+function refreshProducts() {
+  if (typeof fetchproductFromServer === 'function') {
+    fetchproductFromServer();
+    if (typeof showToast === 'function') {
+      showToast('Refreshed!', 'Product list updated', 'success');
+    }
+  }
+}
+
+// Make refreshProducts available globally
+window.refreshProducts = refreshProducts;
 </script>
 {% endblock content %}

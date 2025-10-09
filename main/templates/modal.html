@@ -1,70 +1,95 @@
 <!-- Modal -->
-<div id="crudModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm">
-  <div id="crudModalContent" class="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-gray-100 rounded-2xl shadow-2xl w-5/6 sm:w-3/5 md:w-1/2 lg:w-2/5 xl:w-1/3 transform transition-all duration-300 opacity-0 scale-95 border border-purple-700/40">
-   
+<div id="crudModal"
+     class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
+  <div id="crudModalContent"
+       class="bg-gray-800 text-gray-100 rounded-lg shadow-xl w-5/6 sm:w-3/5 md:w-1/2 lg:w-2/5 xl:w-1/3 max-h-[90vh] overflow-y-auto transform transition-all duration-200 scale-95 opacity-0">
     <!-- Modal header -->
-    <div class="flex items-center justify-between p-4 border-b">
+    <div class="flex items-center justify-between p-4 border-b border-gray-700">
       <div>
-        <h3 class="text-xl font-semibold text-white-900">
+        <h3 class="text-xl font-semibold text-white">
           Create New Product
         </h3>
-        <p class="text-sm text-gray-600 mt-1">Share your football product with the community</p>
+        <p class="text-sm text-gray-300 mt-1">Share your football product with the community</p>
       </div>
-      <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="hideModal()">
-        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+      <button type="button"
+              class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+              onclick="hideModal()" aria-label="Close modal">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+             xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"></path>
         </svg>
         <span class="sr-only">Close modal</span>
       </button>
     </div>
+
     <!-- Modal body -->
-    <div class="px-6 py-4 space-y-6 form-style">
+    <div class="px-6 py-4 space-y-6">
       <form id="productForm">
-        {% csrf_token %} 
+        {% csrf_token %}
         <div class="mb-4">
-          <label for="name" class="block text-sm font-medium text-white-700">Name</label>
+          <label for="name" class="block text-sm font-medium text-gray-200">Name</label>
           <input type="text" id="name" name="name"
-           class="mt-1 block w-full border border-white-300 rounded-md px-3 py-2 text-white bg-gray-900"
-           placeholder="Enter product name" required>
+                 class="mt-1 block w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+                 placeholder="Enter product title" required>
         </div>
+
         <div class="mb-4">
-          <label for="description" class="block text-sm font-medium text-white-700">Description</label>
-          <textarea id="description" name="description" rows="3" class="mt-1 block w-full border border-white-300 rounded-md px-3 py-2 text-white bg-gray-900"placeholder="Enter product description" required></textarea>
+          <label for="price" class="block text-sm font-medium text-gray-200">Price</label>
+          <input type="number" id="price" name="price" required min="0"
+                 class="mt-1 block w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500">
         </div>
+
         <div class="mb-4">
-          <label for="category" class="block text-sm font-medium text-white-700">Category</label>
-          <select id="category" name="category" class="mt-1 block w-full border border-white-300 rounded-md px-3 py-2 text-white bg-gray-900" required>
-            <option value="">Choose a category</option>
-            <option value="bolasepak"> Bola Sepak</option>
-            <option value="bolalatihan"> Bola Latihan</option>
+          <label for="content" class="block text-sm font-medium text-gray-200">Description</label>
+          <textarea id="content" name="description" rows="3"
+                    class="mt-1 block w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    placeholder="Enter product content" required></textarea>
+        </div>
+
+        <div class="mb-4">
+          <label for="category" class="block text-sm font-medium text-gray-200">Category</label>
+          <select id="category" name="category"
+                  class="mt-1 block w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  required>
+            <option value="bolasepak">Bola Sepak</option>
+            <option value="bolalatihan">Bola Latihan</option>
             <option value="pakaian">Pakaian</option>
-            <option value="sepatusepakbola"> Sepatu Sepak Bola</option>
-            <option value="aksesoris"> Aksesoris</option>
-            <option value="gawang"> Gawang</option>
-            <option value="budget"> Budget</option>
-            
+            <option value="sepatusepakbola">Sepatu Sepak Bola</option>
+            <option value="aksesoris">Aksesoris</option>
+            <option value="gawang">Gawang</option>
+            <option value="budget">Budget</option>
           </select>
         </div>
+
         <div class="mb-4">
-          <label for="thumbnail" class="block text-sm font-medium text-white-700">Thumbnail URL</label>
-          <input type="url" id="thumbnail" name="thumbnail" class="mt-1 block w-full border border-white-300 rounded-md px-3 py-2 text-white bg-gray-900"placeholder="https://example.com/image.jpg">
+          <label for="thumbnail" class="block text-sm font-medium text-gray-200">Thumbnail URL</label>
+          <input type="url" id="thumbnail" name="thumbnail"
+                 class="mt-1 block w-full bg-gray-700 text-gray-100 border border-gray-600 rounded-md px-3 py-2 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+                 placeholder="https://example.com/image.jpg">
         </div>
+
         <div class="mb-4">
-          <label class="block text-sm font-medium text-white-700">Featured</label>
-          <div class="mt-1 flex items-center justify-start space-x-2">
+          <div class="flex items-center">
             <input id="is_featured" name="is_featured" type="checkbox"
-                   class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded">
-            <label for="is_featured" class="text-sm font-medium text-white">Featured Product</label>
+                   class="w-4 h-4 text-green-500 bg-gray-600 border-gray-500 rounded">
+            <label for="is_featured" class="ml-2 text-sm font-medium text-gray-200">Featured Product</label>
           </div>
         </div>
       </form>
     </div>
+
     <!-- Modal footer -->
-    <div class="flex flex-col sm:flex-row gap-4 p-6 border-t border-gray-200 rounded-b">
-      
-      <button type="button" id="cancelButton" class="order-2 sm:order-1 px-6 py-3 border border-gray-300 text-black-700 rounded-md font-medium hover:bg-gray-50 transition-colors text-center" onclick="hideModal()">Cancel</button>
-      
-      <button type="submit" id="submitProduct" form="productForm" class="order-1 sm:order-2 flex-1 bg-blue-600 text-white px-6 py-3 rounded-md font-medium hover:bg-gray-700 transition-colors">Publish Product</button>
+    <div class="flex flex-col sm:flex-row gap-4 p-6 border-t border-gray-700 rounded-b">
+      <button type="button" id="cancelButton"
+              class="order-2 sm:order-1 px-6 py-3 border border-gray-600 text-gray-200 rounded-md font-medium hover:bg-gray-700 transition-colors"
+              onclick="hideModal()">Cancel</button>
+
+      <button type="submit" id="submitproduct" form="productForm"
+              class="order-1 sm:order-2 flex-1 bg-blue-600 text-white px-6 py-3 rounded-md font-medium hover:bg-green-700 transition-colors">
+        Publish Product
+      </button>
     </div>
   </div>
 </div>
@@ -92,52 +117,62 @@
         modal.classList.add('hidden');
       }, 150); 
   }
-// Tambahkan fungsi untuk get CSRF token
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
+  document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('productForm');
+  if (!form) return;
 
-async function addProductEntry() {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const submitButton = document.getElementById('submitproduct');
+    const originalText = submitButton.textContent;
+    submitButton.textContent = 'Creating...';
+    submitButton.disabled = true;
+
     try {
-        const formData = new FormData(document.querySelector('#productForm'));
-        const csrftoken = getCookie('csrftoken');
+      const formData = new FormData(form);
+      
+      // Get CSRF token
+      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+      
+      const response = await fetch("{% url 'main:add_product_entry_ajax' %}", {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrftoken,
+        },
+        body: formData
+      });
+
+      if (response.status === 201) {
+        const data = await response.json();
         
-        const response = await fetch("{% url 'main:add_product_entry_ajax' %}", {
-            method: "POST",
-            body: formData,
-            headers: {
-                'X-CSRFToken': csrftoken
-            }
-        });
-
-        if (response.status === 201) {
-            document.getElementById("productForm").reset();
-            hideModal();
-            
-            // Show success toast
-            showToast('Success', 'Product added successfully!', 'success', 3000);
-
-            // Refresh product list
-            document.dispatchEvent(new CustomEvent('productAdded'));
-        } else {
-            const errorText = await response.text();
-            throw new Error(`Server returned ${response.status}: ${errorText}`);
+        // Show success toast
+        if (typeof showToast === 'function') {
+          showToast('Success!', 'Product created successfully', 'success');
         }
+        
+        // Hide modal and reset form
+        hideModal();
+        form.reset();
+        
+        // Refresh product list
+        if (typeof fetchproductFromServer === 'function') {
+          fetchproductFromServer();
+        }
+        
+        // Trigger custom event for other components
+        document.dispatchEvent(new CustomEvent('productAdded'));
+      } else {
+        const errorData = await response.json();
+        alert('Failed to create product: ' + (errorData.detail || 'Unknown error'));
+      }
     } catch (error) {
-        console.error('Error adding product:', error);
-        showToast('Error', 'Failed to add product: ' + error.message, 'error', 5000);
+      console.error('Error:', error);
+      alert('Network error occurred');
+    } finally {
+      submitButton.textContent = originalText;
+      submitButton.disabled = false;
     }
-}
-
+  });
+});
 </script> 

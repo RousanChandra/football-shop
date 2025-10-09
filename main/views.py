@@ -14,7 +14,7 @@ from django.db import IntegrityError
 from django.http import HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from django.utils.html import strip_tags
+
 # Create your views here.
  
 @login_required(login_url='/login')
@@ -41,7 +41,7 @@ def show_xml(request):
 
 
 def show_json(request):
-    product_list = Product.objects.all()
+    product_list = Product.objects.select_related('user').all()
     data = [
         {
             'id': str(product.id),
@@ -51,10 +51,10 @@ def show_json(request):
             'thumbnail': product.thumbnail,
             'is_featured': product.is_featured,
             'user_id': product.user_id,
+            'user_username': product.user.username if product.user else None,
         }
         for product in product_list
     ]
-
     return JsonResponse(data, safe=False)
 
 @login_required(login_url='/login')
@@ -90,22 +90,23 @@ def show_xml_by_id(request, product_id):
        return HttpResponse(status=404)
 
 
-def show_json_by_id(request,product_id):
+def show_json_by_id(request, product_id):
     try:
         product = Product.objects.select_related('user').get(pk=product_id)
         data = {
             'id': str(product.id),
-            'name':product.name,
-            'description':product.description,
-            'category':product.category,
-            'thumbnail':product.thumbnail,
-            'is_featured':product.is_featured,
-            'user_id':product.user_id,
-            'user_username':product.user.username if product.user_id else None,
+            'name': product.name,
+            'description': product.description,
+            'category': product.category,
+            'thumbnail': product.thumbnail,
+            'is_featured': product.is_featured,
+            'user_id': product.user_id,
+            'user_username': product.user.username if product.user else None,
         }
         return JsonResponse(data)
-    except product.DoesNotExist:
+    except Product.DoesNotExist:
         return JsonResponse({'detail': 'Not found'}, status=404)
+
    
 def register(request):
     form = UserCreationForm()
@@ -167,22 +168,42 @@ def delete_product(request, id):
 @csrf_exempt
 @require_POST
 def add_product_entry_ajax(request):
+    # required fields
+    name = request.POST.get("name", "").strip()
+    description = request.POST.get("description", "").strip()
+    category = request.POST.get("category", "").strip() or "budget"
+    thumbnail = request.POST.get("thumbnail", "").strip() or None
+    is_featured = request.POST.get("is_featured") in ("on", "true", "1")
+    price_raw = request.POST.get("price", "").strip()
 
-    name = request.POST.get("name") 
-    description = request.POST.get("description")  # 
-    category = request.POST.get("category")
-    thumbnail = request.POST.get("thumbnail")
-    is_featured = request.POST.get("is_featured") == 'on'
-    user = request.user
+    if not name:
+        return JsonResponse({'detail': 'name required'}, status=400)
+    if not price_raw:
+        return JsonResponse({'detail': 'price required'}, status=400)
+    try:
+        price = int(price_raw)
+    except ValueError:
+        return JsonResponse({'detail': 'price must be an integer'}, status=400)
 
-    new_product = Product(
+    # create and save
+    product = Product(
         name=name,
+        price=price,
         description=description,
         category=category,
         thumbnail=thumbnail,
         is_featured=is_featured,
-        user=user
+        user=request.user if request.user.is_authenticated else None
     )
-    new_product.save()
+    product.save()
 
-    return HttpResponse(b"CREATED", status=201)
+    # return created product data
+    return JsonResponse({
+        'status': 'created',
+        'id': str(product.id),
+        'name': product.name,
+        'thumbnail': product.thumbnail,
+        'category': product.category,
+        'is_featured': product.is_featured,
+        'user_id': product.user_id,
+    }, status=201)
