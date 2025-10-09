@@ -457,8 +457,9 @@ Contoh: Like button, live search, infinite scroll
        def api_view(request):
         data = {'status': 'success', 'message': 'Data loaded'}
         return JsonResponse(data)
- Apa keuntungan menggunakan AJAX dibandingkan render biasa di Django?
- AJAX:
+ 3. Apa keuntungan menggunakan AJAX dibandingkan render biasa di Django?
+
+AJAX:
 
 ✅ User experience lebih smooth
 
@@ -475,7 +476,8 @@ Render Biasa:
 ❌ Lebih banyak bandwidth
 
 ❌ User experience kurang responsif
- Bagaimana cara memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django?
+ 
+ 4. Bagaimana cara memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django?
  Best Practices:
 
 ✅ CSRF Protection: Sertakan token CSRF di setiap request
@@ -488,7 +490,7 @@ Render Biasa:
 
 ✅ Session Management: Gunakan Django's built-in session
 
- Bagaimana AJAX mempengaruhi pengalaman pengguna (User Experience) pada website?
+ 5. Bagaimana AJAX mempengaruhi pengalaman pengguna (User Experience) pada website?
  Positive Impact:
 
 🚀 Speed: Loading lebih cepat, tidak perlu reload halaman
