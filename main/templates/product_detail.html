@@ -175,13 +175,52 @@ function getCategoryLabel(categoryCode) {
     return categoryMapping[categoryCode] || categoryCode || '';
 }
 
-function formatPrice(price) {
-    return new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-    }).format(price || 0);
+function parsePrice(raw) {
+  if (raw == null) return 0; // null atau undefined
+  if (typeof raw === 'number') return Number.isFinite(raw) ? raw : 0;
+  if (typeof raw === 'string') {
+    const s = raw.trim();
+    if (s === '' || s.toLowerCase() === 'null' || s.toLowerCase() === 'undefined') return 0;
+    // hilangkan simbol non-digit kecuali minus dan koma/dot
+    // contoh: "Rp 1.000,50" -> "1000.50" (ganti koma ke titik)
+    let cleaned = s.replace(/[^0-9,.\-]/g, '');
+    // jika ada lebih dari satu titik dan ada koma, asumsikan format ribuan memakai titik: "1.000,50"
+    // ubah pola ribuan dan desimal menjadi bentuk parseFloat-friendly
+    if (cleaned.indexOf(',') !== -1 && cleaned.indexOf('.') !== -1) {
+      // jika terakhir koma -> treat comma as decimal separator
+      if (cleaned.lastIndexOf(',') > cleaned.lastIndexOf('.')) {
+        cleaned = cleaned.replace(/\./g, '').replace(/,/g, '.');
+      } else {
+        // sebaliknya hapus koma (koma kemungkinan ribuan di beberapa format)
+        cleaned = cleaned.replace(/,/g, '');
+      }
+    } else {
+      // jika hanya ada koma, jadikan titik desimal
+      if (cleaned.indexOf(',') !== -1) cleaned = cleaned.replace(/,/g, '.');
+    }
+
+    const n = parseFloat(cleaned);
+    return Number.isFinite(n) ? n : 0;
+  }
+  if (typeof raw === 'object') {
+    // contoh kemungkinan: { amount: 10000 } atau { price: "10000" }
+    if ('amount' in raw) return parsePrice(raw.amount);
+    if ('value' in raw) return parsePrice(raw.value);
+    if ('price' in raw) return parsePrice(raw.price);
+    return 0;
+  }
+  return 0;
+}
+
+/* Gunakan parsePrice dulu, lalu format result */
+function formatPrice(raw) {
+  const priceNumber = parsePrice(raw);
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(priceNumber);
 }
 
 function createBadge(text, variant='indigo'){
